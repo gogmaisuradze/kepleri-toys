@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+
+<html class="light" lang="ka"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Alta Kids - სათამაშოების და საბავშვო გაჯეტების ონლაინ ჰიპერმარკეტი</title>
+<!-- Google Fonts: Outfit & Rubik for design system match -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&amp;family=Rubik:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS via CDN with form & container query plugins -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Theme Configuration verbatim as specified -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          "colors": {
+            "inverse-primary": "#bac8dc",
+            "surface-container-lowest": "#ffffff",
+            "tertiary-container": "#002022",
+            "accent-sale": "#FF006E",
+            "secondary-fixed": "#d8e2ff",
+            "error-container": "#ffdad6",
+            "tertiary-fixed": "#7df4ff",
+            "tertiary": "#000000",
+            "on-secondary-fixed": "#001a41",
+            "on-error": "#ffffff",
+            "shadow-light": "#FFFFFF",
+            "on-tertiary-container": "#00929b",
+            "surface": "#f6fafe",
+            "surface-container-high": "#e5e9ed",
+            "on-secondary-container": "#fefcff",
+            "surface-variant": "#dfe3e7",
+            "error": "#ba1a1a",
+            "secondary": "#0058bd",
+            "primary-fixed": "#d6e4f9",
+            "on-background": "#171c1f",
+            "shadow-dark": "#D1D9E6",
+            "on-surface": "#171c1f",
+            "primary-fixed-dim": "#bac8dc",
+            "outline-variant": "#c4c6cc",
+            "on-tertiary-fixed-variant": "#004f54",
+            "inverse-surface": "#2c3134",
+            "surface-bright": "#f6fafe",
+            "surface-dim": "#d6dade",
+            "inverse-on-surface": "#edf1f5",
+            "secondary-fixed-dim": "#adc6ff",
+            "surface-container-low": "#f0f4f8",
+            "surface-card": "#F4F7FA",
+            "on-primary-fixed": "#0f1c2c",
+            "surface-bg": "#EEF2F6",
+            "on-secondary-fixed-variant": "#004494",
+            "on-error-container": "#93000a",
+            "on-primary-container": "#778598",
+            "secondary-container": "#1470e8",
+            "background": "#f6fafe",
+            "on-secondary": "#ffffff",
+            "text-muted": "#6C7D93",
+            "surface-container-highest": "#dfe3e7",
+            "primary": "#000000",
+            "primary-container": "#0f1c2c",
+            "surface-tint": "#525f71",
+            "on-primary": "#ffffff",
+            "on-surface-variant": "#44474c",
+            "surface-container": "#eaeef2",
+            "tertiary-fixed-dim": "#00dbe9",
+            "badge-yellow": "#FFBE0B",
+            "on-tertiary": "#ffffff",
+            "outline": "#74777d",
+            "on-tertiary-fixed": "#002022",
+            "on-primary-fixed-variant": "#3a4859",
+            "text-primary": "#0D1B2A"
+          },
+          "borderRadius": {
+            "DEFAULT": "1rem",
+            "lg": "2rem",
+            "xl": "3rem",
+            "full": "9999px"
+          },
+          "spacing": {
+            "space-md": "1rem",
+            "margin": "2.5rem",
+            "space-xl": "2.5rem",
+            "space-xs": "0.25rem",
+            "space-lg": "1.5rem",
+            "space-sm": "0.5rem",
+            "gutter-mobile": "0.75rem",
+            "margin-mobile": "1rem",
+            "gutter": "1.5rem"
+          },
+          "fontFamily": {
+            "price-lg": ["Outfit", "sans-serif"],
+            "body-sm": ["Rubik", "sans-serif"],
+            "headline-lg": ["Outfit", "sans-serif"],
+            "label-caps": ["Rubik", "sans-serif"],
+            "price-sm": ["Outfit", "sans-serif"],
+            "headline-sm": ["Outfit", "sans-serif"],
+            "display-hero": ["Outfit", "sans-serif"],
+            "body-md": ["Rubik", "sans-serif"],
+            "headline-md": ["Outfit", "sans-serif"],
+            "title-card": ["Outfit", "sans-serif"],
+            "headline-lg-mobile": ["Outfit", "sans-serif"],
+            "body-lg": ["Rubik", "sans-serif"]
+          },
+          "fontSize": {
+            "price-lg": ["22px", { "lineHeight": "28px", "fontWeight": "700" }],
+            "body-sm": ["12px", { "lineHeight": "18px", "fontWeight": "400" }],
+            "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "label-caps": ["11px", { "lineHeight": "16px", "letterSpacing": "0.06em", "fontWeight": "600" }],
+            "price-sm": ["15px", { "lineHeight": "20px", "fontWeight": "600" }],
+            "headline-sm": ["20px", { "lineHeight": "28px", "fontWeight": "600" }],
+            "display-hero": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700" }],
+            "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }],
+            "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "600" }],
+            "title-card": ["17px", { "lineHeight": "24px", "fontWeight": "500" }],
+            "headline-lg-mobile": ["26px", { "lineHeight": "34px", "letterSpacing": "-0.01em", "fontWeight": "600" }],
+            "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+          }
+        }
+      }
+    }
+  </script>
+<style>
+    /* Neumorphic physical soft elevation tokens */
+    .tactile-extruded-sm {
+      box-shadow: 4px 4px 10px #D1D9E6, -4px -4px 10px #FFFFFF;
+    }
+    .tactile-extruded {
+      box-shadow: 6px 6px 14px #D1D9E6, -6px -6px 14px #FFFFFF;
+    }
+    .tactile-floating {
+      box-shadow: 10px 10px 22px #C5D0DF, -10px -10px 22px #FFFFFF;
+    }
+    .tactile-inset {
+      box-shadow: inset 3px 3px 6px #D1D9E6, inset -3px -3px 6px #FFFFFF;
+    }
+    .tactile-inset-deep {
+      box-shadow: inset 4px 4px 8px #C5D0DF, inset -4px -4px 8px #FFFFFF;
+    }
+    .space-cosmic-glow {
+      box-shadow: 0 0 16px rgba(58, 134, 255, 0.4), inset 0 0 10px rgba(0, 240, 255, 0.35);
+    }
+    .space-cyan-glow {
+      box-shadow: 0 0 12px rgba(0, 219, 233, 0.5);
+    }
+    /* Subtle custom scrollbar */
+    ::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #EEF2F6;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #c4c6cc;
+      border-radius: 9999px;
+    }
+  </style>
+</head>
+<body class="bg-surface-bg text-on-surface antialiased min-h-screen flex flex-col font-body-md selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+<!-- 1. TOP UTILITY BAR (alta.ge e-commerce standard) -->
+<div class="w-full bg-surface-container-high/60 backdrop-blur-md text-text-muted text-body-sm font-body-sm border-b border-white/50">
+<div class="max-w-7xl mx-auto px-4 lg:px-margin py-1.5 flex flex-wrap items-center justify-between gap-2">
+<!-- Shipping Announcement -->
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[18px]">local_shipping</span>
+<span class="font-medium text-text-primary">უფასო მიწოდება 50 ₾-დან მთელ საქართველოში</span>
+<span class="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
+<span class="hidden md:inline text-text-muted">ექსპრეს კურიერი თბილისში 90 წუთში</span>
+</div>
+<!-- Quick links & Phone -->
+<div class="flex items-center gap-5 text-body-sm">
+<a class="hover:text-secondary transition-colors duration-150 flex items-center gap-1" href="#branches">
+<span class="material-symbols-outlined text-[16px]">storefront</span>
+<span>ფილიალები</span>
+</a>
+<a class="hover:text-secondary transition-colors duration-150 flex items-center gap-1" href="#warranty">
+<span class="material-symbols-outlined text-[16px]">verified_user</span>
+<span>გარანტია</span>
+</a>
+<a class="hover:text-secondary transition-colors duration-150 flex items-center gap-1" href="#installments">
+<span class="material-symbols-outlined text-[16px]">credit_card</span>
+<span>0% განვადება</span>
+</a>
+<div class="flex items-center gap-1 font-semibold text-text-primary bg-white/70 px-2.5 py-0.5 rounded-full tactile-extruded-sm">
+<span class="material-symbols-outlined text-secondary text-[16px]">call</span>
+<span>*7777 / 032 2 38 00 38</span>
+</div>
+<div class="flex items-center gap-1 text-text-primary font-medium cursor-pointer">
+<span class="w-4 h-3 rounded-sm bg-error inline-block relative overflow-hidden">
+<span class="absolute inset-x-0 top-1/2 -translate-y-1/2 h-0.5 bg-white"></span>
+</span>
+<span>GEO / GEL ₾</span>
+</div>
+</div>
+</div>
+</div>
+<!-- 2. MAIN HEADER (Mapped from TopNavBar Shared Component JSON) -->
+<header class="sticky top-0 z-50 bg-surface dark:bg-inverse-surface shadow-[0_4px_20px_rgba(209,217,230,0.6)] dark:shadow-none transition-all duration-200">
+<div class="w-full max-w-7xl mx-auto px-4 lg:px-margin flex items-center justify-between gap-gutter py-3">
+<!-- Brand & Catalog Button Cluster -->
+<div class="flex items-center gap-5 shrink-0">
+<!-- Logo -->
+<a class="flex items-center gap-2.5 group" href="#">
+<div class="w-11 h-11 rounded-full bg-primary-container text-white flex items-center justify-center space-cosmic-glow active:scale-95 transition-transform duration-100">
+<span class="material-symbols-outlined text-[24px] text-tertiary-fixed">rocket_launch</span>
+</div>
+<div class="flex flex-col">
+<span class="text-headline-md font-headline-md font-bold tracking-tight text-primary dark:text-inverse-primary leading-tight">Alta Kids</span>
+<span class="text-label-caps font-label-caps text-secondary font-bold tracking-wider -mt-0.5">სათამაშოები &amp; გაჯეტები</span>
+</div>
+</a>
+<!-- "კატალოგი" Pill Dropdown Trigger -->
+<button class="hidden sm:flex items-center gap-2 bg-text-primary text-white px-5 py-2.5 rounded-xl font-headline-sm text-[15px] font-semibold tracking-wide hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all duration-150" type="button">
+<span class="material-symbols-outlined text-[20px] text-tertiary-fixed">apps</span>
+<span>კატალოგი</span>
+<span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+</button>
+</div>
+<!-- Inset Pill Search Bar (Search on left) -->
+<div class="flex-1 max-w-xl mx-2">
+<form class="relative flex items-center" onsubmit="event.preventDefault()">
+<span class="material-symbols-outlined absolute left-4 text-text-muted pointer-events-none text-[22px]">search</span>
+<input class="w-full pl-12 pr-28 py-2.5 bg-surface-bg rounded-xl tactile-inset border-none text-body-md font-body-md text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-secondary focus:outline-none transition-all" placeholder="მოძებნეთ სათამაშო, LEGO, რობოტი, ასაკი..." type="search"/>
+<button class="absolute right-1.5 px-4 py-1.5 bg-secondary hover:bg-secondary-container text-white font-label-caps text-body-sm font-semibold rounded-xl tactile-extruded-sm active:scale-95 transition-transform" type="submit">
+            ძებნა
+          </button>
+</form>
+</div>
+<!-- Trailing Action Icons (Favorite, Cart, Account Profile) -->
+<div class="flex items-center gap-3 shrink-0">
+<!-- Compare Icon -->
+<button class="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center text-text-primary tactile-extruded hover:text-secondary active:scale-95 transition-transform duration-100 relative" title="შედარება">
+<span class="material-symbols-outlined text-[21px]">balance</span>
+</button>
+<!-- Favorite / Wishlist -->
+<button class="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center text-text-primary tactile-extruded hover:text-accent-sale active:scale-95 transition-transform duration-100 relative" title="სურვილები">
+<span class="material-symbols-outlined text-[21px]">favorite</span>
+<span class="absolute -top-1 -right-1 w-4 h-4 bg-accent-sale text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">3</span>
+</button>
+<!-- Cart Action (Trailing primary action: კალათა) -->
+<button class="flex items-center gap-2.5 px-3.5 py-2 rounded-xl bg-surface-card tactile-extruded text-text-primary hover:text-secondary active:scale-95 transition-transform duration-100" title="კალათა">
+<div class="relative">
+<span class="material-symbols-outlined text-[22px] text-secondary">shopping_cart</span>
+<span class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-secondary text-white text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
+</div>
+<div class="hidden xl:flex flex-col text-left leading-tight">
+<span class="text-label-caps font-label-caps text-text-muted">კალათა</span>
+<span class="text-body-sm font-semibold text-text-primary">189.00 ₾</span>
+</div>
+</button>
+<!-- Profile Action (Trailing secondary action: შესვლა) -->
+<button class="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-surface-card tactile-extruded text-text-primary hover:text-secondary active:scale-95 transition-transform duration-100" title="მომხმარებლის პროფილი">
+<span class="material-symbols-outlined text-[22px] text-text-muted">account_circle</span>
+<span class="hidden md:inline font-headline-sm text-body-md font-medium">შესვლა</span>
+</button>
+</div>
+</div>
+<!-- Sub-navigation links from Shared Components: კატალოგი, აქციები, ფილიალები, მიწოდება, კონტაქტი -->
+<div class="border-t border-white/60 bg-surface/90 backdrop-blur-sm">
+<div class="w-full max-w-7xl mx-auto px-4 lg:px-margin flex items-center justify-between gap-4 py-2 overflow-x-auto no-scrollbar">
+<!-- Main Navigation Links from JSON with active state logic -->
+<nav class="flex items-center gap-6 shrink-0 text-body-md font-body-md">
+<a class="text-secondary dark:text-secondary-fixed font-semibold flex items-center gap-1.5 pb-0.5 border-b-2 border-secondary" href="#">
+<span class="material-symbols-outlined text-[18px]">category</span>
+<span>კატალოგი</span>
+</a>
+<a class="text-text-muted dark:text-outline-variant hover:text-text-primary dark:hover:text-surface hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150 flex items-center gap-1" href="#promos">
+<span class="material-symbols-outlined text-accent-sale text-[18px]">local_fire_department</span>
+<span class="text-accent-sale font-semibold">აქციები %</span>
+</a>
+<a class="text-text-muted dark:text-outline-variant hover:text-text-primary dark:hover:text-surface hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#branches">
+<span>ფილიალები</span>
+</a>
+<a class="text-text-muted dark:text-outline-variant hover:text-text-primary dark:hover:text-surface hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#delivery">
+<span>მიწოდება</span>
+</a>
+<a class="text-text-muted dark:text-outline-variant hover:text-text-primary dark:hover:text-surface hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#contact">
+<span>კონტაქტი</span>
+</a>
+</nav>
+<!-- Popular Category quick pills -->
+<div class="flex items-center gap-2 shrink-0 py-0.5">
+<span class="text-label-caps font-label-caps text-text-muted uppercase tracking-wider hidden lg:inline">პოპულარული:</span>
+<a class="px-3 py-1 rounded-full bg-surface-card text-body-sm font-medium text-text-primary tactile-extruded-sm hover:text-secondary transition-colors" href="#lego">LEGO</a>
+<a class="px-3 py-1 rounded-full bg-surface-card text-body-sm font-medium text-text-primary tactile-extruded-sm hover:text-secondary transition-colors" href="#robots">ინტერაქტიული რობოტები</a>
+<a class="px-3 py-1 rounded-full bg-surface-card text-body-sm font-medium text-text-primary tactile-extruded-sm hover:text-secondary transition-colors" href="#boardgames">სამაგიდო</a>
+<a class="px-3 py-1 rounded-full bg-surface-card text-body-sm font-medium text-text-primary tactile-extruded-sm hover:text-secondary transition-colors" href="#gadgets">საბავშვო გაჯეტები</a>
+</div>
+</div>
+</div>
+</header>
+<!-- MAIN CANVAS -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 lg:px-margin py-6 space-y-10">
+<!-- 3. HERO SHOWCASE BENTO SECTION (Tactile & Space-Cosmic Theme Inspired by Image) -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
+<!-- Main Featured Banner (Bento 8 Cols) -->
+<div class="lg:col-span-8 rounded-lg bg-gradient-to-br from-[#0D1B2A] via-[#132238] to-[#0A1320] text-white p-6 sm:p-9 relative overflow-hidden tactile-floating flex flex-col justify-between border border-white/10 group min-h-[380px]">
+<!-- Decorative Neumorphic Cosmic Planet & Starfield Effect -->
+<div class="absolute -right-16 -top-16 w-80 h-80 rounded-full bg-secondary/20 blur-3xl pointer-events-none"></div>
+<div class="absolute right-12 bottom-4 w-60 h-60 rounded-full bg-tertiary-fixed/10 blur-2xl pointer-events-none"></div>
+<!-- Upper Tag & Live status -->
+<div class="relative z-10 flex flex-wrap items-center justify-between gap-3">
+<div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-tertiary-fixed text-label-caps font-label-caps">
+<span class="w-2 h-2 rounded-full bg-tertiary-fixed animate-ping"></span>
+<span>კოსმოსური შეთავაზება 2025</span>
+</div>
+<div class="flex items-center gap-2 px-3 py-1 rounded-full bg-accent-sale/20 border border-accent-sale/40 text-accent-sale text-body-sm font-semibold">
+<span class="material-symbols-outlined text-[16px]">bolt</span>
+<span>ფასდაკლება -40%-მდე</span>
+</div>
+</div>
+<!-- Center Content & Visual Metaphor Inspired by Reference Astronaut / Space Widget -->
+<div class="relative z-10 my-6 grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+<div class="md:col-span-7 space-y-3">
+<h1 class="text-headline-lg font-headline-lg font-bold tracking-tight text-white leading-tight">
+              კოსმოსური თავგადასავალი იწყება აქ! 🚀
+            </h1>
+<p class="text-body-md font-body-md text-surface-container-highest max-w-md">
+              აღმოაჩინეთ ჭკვიანი რობოტები, სამეცნიერო STEM კონსტრუქტორები და ინტერაქტიული გაჯეტები თქვენი პატარა მკვლევარებისთვის.
+            </p>
+<div class="pt-2 flex flex-wrap items-center gap-3">
+<a class="px-6 py-3 rounded-xl bg-white text-text-primary font-headline-sm text-body-md font-bold tactile-floating hover:bg-tertiary-fixed transition-all active:scale-95 flex items-center gap-2" href="#hot-deals">
+<span>ყიდვა ახლავე</span>
+<span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+<a class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-medium backdrop-blur-md border border-white/20 active:scale-95 transition-all flex items-center gap-2" href="#catalog">
+<span class="material-symbols-outlined text-[18px]">explore</span>
+<span>კატალოგის ნახვა</span>
+</a>
+</div>
+</div>
+<!-- Hero Image & Neumorphic Badge Cluster -->
+<div class="md:col-span-5 relative flex justify-center items-center">
+<div class="relative w-52 h-52 sm:w-60 sm:h-60 rounded-full bg-gradient-to-tr from-[#1b2b40] to-[#0A1320] p-3 space-cosmic-glow flex items-center justify-center">
+<img class="w-full h-full object-cover rounded-full mix-blend-screen" data-alt="A cute high-tech playful toy astronaut figurine floating against a soft gradient cosmic background. Illuminated by soft cyan and white studio rim lighting, reflecting deep navy textures. Modern, polished 3D toy photography with smooth tactile plastic surfaces and playful detailing." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCkn49jsbiO0krW0HpaaA7sakqgqhwREmK9wQDmo4r3lJ9ZMW4AWJGdRkkt5jE69HnAYyM9jNN2KVyMgC6i5aPXrdcRtTmX_trDI0ZkJfShYWXYa6U9Qr9sI8D1VmLB0-8wQZGDNp8w-hXdexSAtAC3_P1Ei2p-YfdNGvNf3N4Pc497EnmSCUl_UAhBrmc3EZd6diKIgQQcrby1TUd-HE57OtQA0t_mJsCWFRFBc_3yQDebhTgrhMH4ww"/>
+<!-- Tactile Floating Pill Badges (direct inspiration from reference UI elements) -->
+<div class="absolute -bottom-2 -left-4 bg-surface-card text-text-primary px-3.5 py-2 rounded-xl tactile-floating flex items-center gap-2 text-body-sm font-semibold border border-white">
+<span class="material-symbols-outlined text-secondary text-[20px]">schedule</span>
+<div>
+<span class="block text-[10px] text-text-muted leading-tight">მიწოდება</span>
+<span class="text-body-sm">1 საათში</span>
+</div>
+</div>
+<div class="absolute -top-3 -right-2 bg-badge-yellow text-primary px-3 py-1.5 rounded-full shadow-lg flex items-center gap-1.5 font-bold text-label-caps font-label-caps">
+<span class="material-symbols-outlined text-[16px]">stars</span>
+<span>Alta Kids Choice</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Hero Bottom Bar: Features -->
+<div class="relative z-10 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-body-sm text-surface-container-highest">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">workspace_premium</span>
+<span>100% ოფიციალური გარანტია</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">payments</span>
+<span>0% ონლაინ განვადება</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary-fixed text-[18px]">replay</span>
+<span>მარტივი დაბრუნება 14 დღე</span>
+</div>
+</div>
+</div>
+<!-- Right Column Widgets (Bento 4 Cols - Inspired by reference clock/timing/utility cards) -->
+<div class="lg:col-span-4 flex flex-col gap-4">
+<!-- Widget 1: Deal of the Day (დღის სუპერ შეთავაზება with Countdown Clock inspired by reference clock face) -->
+<div class="rounded-lg bg-surface-card p-5 tactile-extruded border border-white flex-1 flex flex-col justify-between relative overflow-hidden">
+<div class="flex items-center justify-between mb-3">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-accent-sale text-white flex items-center justify-center tactile-extruded-sm">
+<span class="material-symbols-outlined text-[18px]">timer</span>
+</span>
+<div>
+<span class="text-label-caps font-label-caps text-accent-sale block">დღის შეთავაზება</span>
+<span class="text-title-card font-title-card font-bold text-text-primary">სუპერ ფასდაკლება</span>
+</div>
+</div>
+<span class="px-2.5 py-1 rounded-full bg-accent-sale text-white text-label-caps font-label-caps font-bold">-32%</span>
+</div>
+<!-- Mini Product Card Layout -->
+<div class="flex items-center gap-4 my-2">
+<div class="w-24 h-24 rounded-lg bg-surface-bg p-2 tactile-inset flex items-center justify-center shrink-0">
+<img class="w-full h-full object-contain" data-alt="Interactive educational companion robot for kids with glowing blue digital visor screen, white high-tech rounded body, and tactile mechanical buttons. Bright studio lighting on neutral background, modern smart toy photography." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA9-5ZAIKZDnqtATJMNs1Bu1XlP2MgNoM-hqWlOUF-RJgylsJ8COeObcQtrRYyGsUZXNQs4dquY3nd-scv1g7CK9bqmBRjLlfrZAomhMtM7ThxR8T5Ki8ei1aJeyFqYyMbNAFXc9CufceBuEMFzf37uERisPUpLXc3gGSK5-I790HHPJU6MaUPZMnaTGdZ2U8x_XOQTzVKm9rbqqDkCVY6WLTyVzrzsOetmjoCOpsoOaOqU-5M9sGZhSA"/>
+</div>
+<div class="flex-1 min-w-0">
+<span class="text-label-caps font-label-caps text-secondary font-bold">ROBOTICS</span>
+<h4 class="text-title-card font-title-card text-text-primary font-semibold truncate">SmartBot Astro Pro 2.0</h4>
+<div class="flex items-baseline gap-2 mt-1">
+<span class="text-price-lg font-price-lg text-secondary">169.00 ₾</span>
+<span class="text-body-sm text-text-muted line-through">249.00 ₾</span>
+</div>
+<span class="text-[11px] text-text-muted">განვადებით 14 ₾/თვე</span>
+</div>
+</div>
+<!-- Tactile Countdown Display (Neumorphic Inset Timer Pills) -->
+<div class="pt-3 border-t border-shadow-dark/40">
+<span class="text-label-caps font-label-caps text-text-muted block mb-2">აქციის დასრულებამდე დარჩა:</span>
+<div class="grid grid-cols-3 gap-2 text-center">
+<div class="bg-surface-bg rounded-lg py-1.5 tactile-inset">
+<span class="text-price-lg font-price-lg text-text-primary block leading-none" id="countdown-hours">07</span>
+<span class="text-[10px] text-text-muted uppercase">საათი</span>
+</div>
+<div class="bg-surface-bg rounded-lg py-1.5 tactile-inset">
+<span class="text-price-lg font-price-lg text-text-primary block leading-none" id="countdown-minutes">37</span>
+<span class="text-[10px] text-text-muted uppercase">წუთი</span>
+</div>
+<div class="bg-surface-bg rounded-lg py-1.5 tactile-inset">
+<span class="text-price-lg font-price-lg text-text-primary block leading-none" id="countdown-seconds">42</span>
+<span class="text-[10px] text-text-muted uppercase">წამი</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Widget 2: 0% Installment Quick Action Banner -->
+<div class="rounded-lg bg-surface-card p-4 tactile-extruded border border-white flex items-center justify-between gap-4">
+<div class="flex items-center gap-3">
+<div class="w-12 h-12 rounded-full bg-primary-container text-white flex items-center justify-center shrink-0 space-cosmic-glow">
+<span class="material-symbols-outlined text-[24px] text-tertiary-fixed">percent</span>
+</div>
+<div>
+<span class="text-title-card font-title-card font-bold text-text-primary block">0%-იანი განვადება</span>
+<span class="text-body-sm font-body-sm text-text-muted">თიბისი, საქართველოს ბანკი, კრედო</span>
+</div>
+</div>
+<button class="w-9 h-9 rounded-full bg-surface-bg tactile-extruded flex items-center justify-center text-text-primary hover:text-secondary active:scale-95 transition-transform shrink-0">
+<span class="material-symbols-outlined text-[20px]">chevron_right</span>
+</button>
+</div>
+</div>
+</section>
+<!-- 4. INTERACTIVE CATEGORY QUICK-ACCESS (6 Tactile Rounded Pill Cards) -->
+<section class="space-y-4">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<div class="w-2.5 h-6 rounded-full bg-secondary"></div>
+<h2 class="text-headline-sm font-headline-sm font-bold text-text-primary">კატეგორიები</h2>
+</div>
+<a class="text-body-sm font-semibold text-secondary hover:underline flex items-center gap-1" href="#catalog">
+<span>სრული კატალოგი</span>
+<span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
+<!-- Category 1 -->
+<a class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white" href="#lego">
+<div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px] text-accent-sale">extension</span>
+</div>
+<span class="text-title-card font-title-card text-[15px] font-semibold text-text-primary group-hover:text-secondary leading-tight">LEGO &amp; კონსტრუქტორი</span>
+<span class="text-[11px] text-text-muted mt-1">340+ მოდელი</span>
+</a>
+<!-- Category 2 -->
+<a class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white" href="#robots">
+<div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px] text-secondary">smart_toy</span>
+</div>
+<span class="text-title-card font-title-card text-[15px] font-semibold text-text-primary group-hover:text-secondary leading-tight">რობოტები &amp; STEM</span>
+<span class="text-[11px] text-text-muted mt-1">120+ მოდელი</span>
+</a>
+<!-- Category 3 -->
+<a class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white" href="#plush">
+<div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px] text-badge-yellow">cruelty_free</span>
+</div>
+<span class="text-title-card font-title-card text-[15px] font-semibold text-text-primary group-hover:text-secondary leading-tight">რბილი &amp; განმავითარებელი</span>
+<span class="text-[11px] text-text-muted mt-1">210+ მოდელი</span>
+</a>
+<!-- Category 4 -->
+<a class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white" href="#boardgames">
+<div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px] text-on-tertiary-container">casino</span>
+</div>
+<span class="text-title-card font-title-card text-[15px] font-semibold text-text-primary group-hover:text-secondary leading-tight">სამაგიდო თამაშები</span>
+<span class="text-[11px] text-text-muted mt-1">180+ მოდელი</span>
+</a>
+<!-- Category 5 -->
+<a class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white" href="#rc-cars">
+<div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px] text-secondary-container">toys</span>
+</div>
+<span class="text-title-card font-title-card text-[15px] font-semibold text-text-primary group-hover:text-secondary leading-tight">დისტანციური ტრანსპორტი</span>
+<span class="text-[11px] text-text-muted mt-1">95+ მოდელი</span>
+</a>
+<!-- Category 6 -->
+<a class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white" href="#smart-watches">
+<div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
+<span class="material-symbols-outlined text-[32px] text-text-primary">watch</span>
+</div>
+<span class="text-title-card font-title-card text-[15px] font-semibold text-text-primary group-hover:text-secondary leading-tight">ჭკვიანი საათები &amp; აუდიო</span>
+<span class="text-[11px] text-text-muted mt-1">85+ მოდელი</span>
+</a>
+</div>
+</section>
+<!-- 5. "ცხელი შეთავაზებები / HOT DEALS" PRODUCT GRID (Alta standard cards with Neumorphic polish) -->
+<section class="space-y-5" id="hot-deals">
+<div class="flex flex-wrap items-center justify-between gap-4">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-accent-sale text-[24px]">local_fire_department</span>
+<h2 class="text-headline-md font-headline-md font-bold text-text-primary">ცხელი შეთავაზებები</h2>
+</div>
+<p class="text-body-sm font-body-sm text-text-muted">საუკეთესო ფასები სათამაშოებსა და საბავშვო გაჯეტებზე</p>
+</div>
+<!-- Filter tabs pills -->
+<div class="flex items-center gap-2 overflow-x-auto no-scrollbar">
+<button class="px-4 py-1.5 rounded-full bg-primary-container text-white text-body-sm font-medium space-cosmic-glow">ყველა</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-body-sm font-medium tactile-extruded hover:text-text-primary">LEGO</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-body-sm font-medium tactile-extruded hover:text-text-primary">რობოტები</button>
+<button class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-body-sm font-medium tactile-extruded hover:text-text-primary">საბავშვო გაჯეტები</button>
+</div>
+</div>
+<!-- 4-Column Responsive Grid of Tactile Product Cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
+<!-- PRODUCT 1: LEGO Space Shuttle -->
+<div class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 border border-white flex flex-col justify-between relative">
+<!-- Top Badges & Favorite -->
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2.5 py-0.5 rounded-full bg-accent-sale text-white text-label-caps font-label-caps font-bold">-25%</span>
+<button class="w-8 h-8 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-text-muted hover:text-accent-sale active:scale-95 transition-transform" title="სურვილებში დამატება">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<!-- Recessed Product Image Box -->
+<div class="w-full h-44 rounded-xl bg-surface-bg p-3 tactile-inset flex items-center justify-center mb-3 overflow-hidden relative">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" data-alt="A detailed LEGO Technic space shuttle and rocket launch explorer set on display. High contrast soft shadow lighting highlighting crisp colorful bricks, white fuselage, and intricate mechanical construction details." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA04YO74TnST5r4lPcTIXvmXSnwlkpDp9Kd53NxGHGk4p2tzLXH7iLMJeqwPRH-5c_JH9lUBXZU4ayIlXtM4vxWAZAJdGT9-ERpuoUu850K9MaIjbqpm-kfMKGhM7T4x472rweWGJ-Zqj5e1GTlKJpe6pToVshxDqglTulYCFdXeTpG-cCSw2-OZAoAWo5I203MCOCqO1iXZhwXzZ1kkfZcPTiXbYsp7RVXsEE5INmfe2QSDdXGESf1ug"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-sm text-[10px] font-bold text-text-primary uppercase tracking-wider">LEGO</span>
+</div>
+<!-- Product Category & Title -->
+<div class="space-y-1">
+<span class="text-label-caps font-label-caps text-secondary font-semibold">კონსტრუქტორი • 8+ წელი</span>
+<h3 class="text-title-card font-title-card font-semibold text-text-primary line-clamp-2 group-hover:text-secondary transition-colors">
+                LEGO Technic Space Rover &amp; Shuttle Explorer (42158)
+              </h3>
+</div>
+<!-- Rating & In-stock -->
+<div class="flex items-center justify-between mt-2 text-body-sm">
+<div class="flex items-center gap-1 text-badge-yellow">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-text-primary font-semibold text-body-sm">4.9</span>
+<span class="text-text-muted text-[11px]">(48)</span>
+</div>
+<span class="text-[11px] font-medium text-emerald-600 flex items-center gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                მარაგშია
+              </span>
+</div>
+</div>
+<!-- Bottom Price & Add to Cart Cluster -->
+<div class="mt-4 pt-3 border-t border-shadow-dark/40 space-y-2">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="text-price-lg font-price-lg text-text-primary">179.00 ₾</span>
+<span class="text-body-sm text-text-muted line-through ml-2">239.00 ₾</span>
+</div>
+<span class="text-[11px] text-text-muted font-medium bg-surface-bg px-2 py-0.5 rounded tactile-inset-sm">15 ₾/თვე</span>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-text-primary text-white font-headline-sm text-body-sm font-semibold hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">add_shopping_cart</span>
+<span>კალათაში</span>
+</button>
+</div>
+</div>
+<!-- PRODUCT 2: Interactive Robot SmartBot Pro -->
+<div class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 border border-white flex flex-col justify-between relative">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2.5 py-0.5 rounded-full bg-accent-sale text-white text-label-caps font-label-caps font-bold">-35%</span>
+<button class="w-8 h-8 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-accent-sale active:scale-95 transition-transform" title="სურვილებში დამატება">
+<span class="material-symbols-outlined text-[18px]" style="font-variation-settings: 'FILL' 1;">favorite</span>
+</button>
+</div>
+<div class="w-full h-44 rounded-xl bg-surface-bg p-3 tactile-inset flex items-center justify-center mb-3 overflow-hidden relative">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" data-alt="Futuristic child-friendly companion robot with glowing blue LED face screen, voice control features, and smooth white rounded plastic limbs. Photographed in studio lighting against soft neutral gray background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDVTzqpbUBjtqpaCvJBxnGTwFbcw_XlqKQwo9dqENUPvtEs9FE6sGnmojz12sFOzHwFF758D5JmrhqHbk6ZD_KVH5cT9rs5cPm8dUi4Vs2uA-8MolJFVZOc4zapituQ7PfuaEnpSt6Ki4VzBZ1Z-xNAgueVbwzk5ap8Rr2lVBhKX08BeZIhXXrFimb6L51IE6MAkUp5pvgyegZGeyVE7z_34pto7XDqhoXehso1FeOHnRJhlDHbWV8Ozw"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-sm text-[10px] font-bold text-text-primary uppercase tracking-wider">SMARTBOT</span>
+</div>
+<div class="space-y-1">
+<span class="text-label-caps font-label-caps text-secondary font-semibold">ინტერაქტიული რობოტი • 5+ წელი</span>
+<h3 class="text-title-card font-title-card font-semibold text-text-primary line-clamp-2 group-hover:text-secondary transition-colors">
+                ინტერაქტიული ასტრონავტი რობოტი SmartBot Pro AI
+              </h3>
+</div>
+<div class="flex items-center justify-between mt-2 text-body-sm">
+<div class="flex items-center gap-1 text-badge-yellow">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-text-primary font-semibold text-body-sm">5.0</span>
+<span class="text-text-muted text-[11px]">(92)</span>
+</div>
+<span class="text-[11px] font-medium text-emerald-600 flex items-center gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                მარაგშია
+              </span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-shadow-dark/40 space-y-2">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="text-price-lg font-price-lg text-text-primary">149.00 ₾</span>
+<span class="text-body-sm text-text-muted line-through ml-2">229.00 ₾</span>
+</div>
+<span class="text-[11px] text-text-muted font-medium bg-surface-bg px-2 py-0.5 rounded tactile-inset-sm">12 ₾/თვე</span>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-text-primary text-white font-headline-sm text-body-sm font-semibold hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">add_shopping_cart</span>
+<span>კალათაში</span>
+</button>
+</div>
+</div>
+<!-- PRODUCT 3: Kids Smartwatch 4G -->
+<div class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 border border-white flex flex-col justify-between relative">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2.5 py-0.5 rounded-full bg-secondary text-white text-label-caps font-label-caps font-bold">TOP გაყიდვადი</span>
+<button class="w-8 h-8 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-text-muted hover:text-accent-sale active:scale-95 transition-transform" title="სურვილებში დამატება">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="w-full h-44 rounded-xl bg-surface-bg p-3 tactile-inset flex items-center justify-center mb-3 overflow-hidden relative">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" data-alt="Durable colorful kids smartwatch with bright touch screen showing clock widget and GPS map, blue silicone strap with tactile buttons, soft rim lighting, premium e-commerce product photograph." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAjUgku13U6sAZX-KTibWET9lnEOsBlqcAqqS5yEyfbJX2o1SQ6MiHhHlOazQFQEW8h8W9X-6MuUDu4LerwIIGpE32HThQFAl5AsnP87-4To-p2P_CpzeOedtqKA291ctCHx9fCfriaTfrCxYoicMusf2gxU6DI6vPJVp1Il3aVv1hShVoUcyNQxy8We7SuayEIyg4pFvKRUmnBHo4cwrbpV75mDZ5hGbrNgXr1s_7nKBho16_hcLhYGw"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-sm text-[10px] font-bold text-text-primary uppercase tracking-wider">ALTAKIDS</span>
+</div>
+<div class="space-y-1">
+<span class="text-label-caps font-label-caps text-secondary font-semibold">გაჯეტები • GPS Tracker</span>
+<h3 class="text-title-card font-title-card font-semibold text-text-primary line-clamp-2 group-hover:text-secondary transition-colors">
+                საბავშვო GPS ჭკვიანი საათი AltaKids 4G Video Call
+              </h3>
+</div>
+<div class="flex items-center justify-between mt-2 text-body-sm">
+<div class="flex items-center gap-1 text-badge-yellow">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-text-primary font-semibold text-body-sm">4.8</span>
+<span class="text-text-muted text-[11px]">(114)</span>
+</div>
+<span class="text-[11px] font-medium text-emerald-600 flex items-center gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                მარაგშია
+              </span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-shadow-dark/40 space-y-2">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="text-price-lg font-price-lg text-text-primary">129.00 ₾</span>
+<span class="text-body-sm text-text-muted line-through ml-2">169.00 ₾</span>
+</div>
+<span class="text-[11px] text-text-muted font-medium bg-surface-bg px-2 py-0.5 rounded tactile-inset-sm">11 ₾/თვე</span>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-text-primary text-white font-headline-sm text-body-sm font-semibold hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">add_shopping_cart</span>
+<span>კალათაში</span>
+</button>
+</div>
+</div>
+<!-- PRODUCT 4: Kids Quadcopter Drone -->
+<div class="group rounded-lg bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 border border-white flex flex-col justify-between relative">
+<div>
+<div class="flex items-center justify-between mb-2">
+<span class="px-2.5 py-0.5 rounded-full bg-accent-sale text-white text-label-caps font-label-caps font-bold">-20%</span>
+<button class="w-8 h-8 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-text-muted hover:text-accent-sale active:scale-95 transition-transform" title="სურვილებში დამატება">
+<span class="material-symbols-outlined text-[18px]">favorite</span>
+</button>
+</div>
+<div class="w-full h-44 rounded-xl bg-surface-bg p-3 tactile-inset flex items-center justify-center mb-3 overflow-hidden relative">
+<img class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300" data-alt="Safe indoor kids mini quadcopter drone with 360 bumper propeller guards and HD camera. High tech modern blue and black toy aesthetic with glowing LED navigation eyes on clean white surface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsVNzmyx2Z5cYPbLRkvFkRhSFETc47fSqEdh1dF1q47owzu7r9FDdYQMTcZUstlwJM0eKT14Ep5rTixCpWyV2aEyFOk5ibUJUWdawxYgc__MJLWOmvvQOIQ8JAjcUn_WSBSOxC7dUAhXrs8VHyM3glqfhuWnn8LEnYetKc7z0-UdqnmMfnSru2WG45oiDu1yse4rhr5XkxRZ7hsiEy4Tb292Dpvw4h8AyPYnQB4JECRLttwt2S4Sp21Q"/>
+<span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-white/80 backdrop-blur-sm text-[10px] font-bold text-text-primary uppercase tracking-wider">DJI KIDS</span>
+</div>
+<div class="space-y-1">
+<span class="text-label-caps font-label-caps text-secondary font-semibold">დრონები • 7+ წელი</span>
+<h3 class="text-title-card font-title-card font-semibold text-text-primary line-clamp-2 group-hover:text-secondary transition-colors">
+                დისტანციური მინი კვადროკოპტერი HD კამერით
+              </h3>
+</div>
+<div class="flex items-center justify-between mt-2 text-body-sm">
+<div class="flex items-center gap-1 text-badge-yellow">
+<span class="material-symbols-outlined text-[16px]" style="font-variation-settings: 'FILL' 1;">star</span>
+<span class="text-text-primary font-semibold text-body-sm">4.7</span>
+<span class="text-text-muted text-[11px]">(35)</span>
+</div>
+<span class="text-[11px] font-medium text-emerald-600 flex items-center gap-0.5">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+                მარაგშია
+              </span>
+</div>
+</div>
+<div class="mt-4 pt-3 border-t border-shadow-dark/40 space-y-2">
+<div class="flex items-baseline justify-between">
+<div>
+<span class="text-price-lg font-price-lg text-text-primary">119.00 ₾</span>
+<span class="text-body-sm text-text-muted line-through ml-2">149.00 ₾</span>
+</div>
+<span class="text-[11px] text-text-muted font-medium bg-surface-bg px-2 py-0.5 rounded tactile-inset-sm">10 ₾/თვე</span>
+</div>
+<button class="w-full py-2.5 rounded-xl bg-text-primary text-white font-headline-sm text-body-sm font-semibold hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-tertiary-fixed">add_shopping_cart</span>
+<span>კალათაში</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- 6. AGE SELECTOR ECOSYSTEM / BRAND SPOTLIGHT BANNER -->
+<section class="rounded-lg bg-surface-card p-6 lg:p-8 tactile-extruded border border-white">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-secondary text-[24px]">child_care</span>
+<h2 class="text-headline-md font-headline-md font-bold text-text-primary">შეარჩიე სათამაშო ასაკის მიხედვით</h2>
+</div>
+<p class="text-body-sm font-body-sm text-text-muted">სწორად შერჩეული სათამაშო ბავშვის უნარების საუკეთესო განვითარებისთვის</p>
+</div>
+<div class="flex items-center gap-2 text-label-caps font-label-caps text-text-muted">
+<span class="material-symbols-outlined text-[16px] text-secondary">psychology</span>
+<span>პედაგოგიურად რეკომენდებული ასაკობრივი ჯგუფები</span>
+</div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+<!-- Age 1 -->
+<button class="group p-4 rounded-lg bg-surface-bg tactile-extruded hover:tactile-floating active:tactile-inset transition-all flex flex-col items-center text-center">
+<div class="w-14 h-14 rounded-full bg-surface-card p-2.5 tactile-inset flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px] text-secondary">crib</span>
+</div>
+<span class="text-title-card font-title-card font-bold text-text-primary">0-2 წელი</span>
+<span class="text-body-sm text-text-muted">ჩვილის განვითარება</span>
+</button>
+<!-- Age 2 -->
+<button class="group p-4 rounded-lg bg-surface-bg tactile-extruded hover:tactile-floating active:tactile-inset transition-all flex flex-col items-center text-center">
+<div class="w-14 h-14 rounded-full bg-surface-card p-2.5 tactile-inset flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px] text-badge-yellow">palette</span>
+</div>
+<span class="text-title-card font-title-card font-bold text-text-primary">3-5 წელი</span>
+<span class="text-body-sm text-text-muted">სენსორული &amp; როლური</span>
+</button>
+<!-- Age 3 (Active) -->
+<button class="group p-4 rounded-lg bg-primary-container text-white tactile-floating flex flex-col items-center text-center space-cosmic-glow">
+<div class="w-14 h-14 rounded-full bg-white/10 p-2.5 flex items-center justify-center mb-2">
+<span class="material-symbols-outlined text-[28px] text-tertiary-fixed">smart_toy</span>
+</div>
+<span class="text-title-card font-title-card font-bold text-white">6-8 წელი</span>
+<span class="text-body-sm text-surface-container-highest">STEM &amp; რობოტიკა</span>
+</button>
+<!-- Age 4 -->
+<button class="group p-4 rounded-lg bg-surface-bg tactile-extruded hover:tactile-floating active:tactile-inset transition-all flex flex-col items-center text-center">
+<div class="w-14 h-14 rounded-full bg-surface-card p-2.5 tactile-inset flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px] text-accent-sale">rocket</span>
+</div>
+<span class="text-title-card font-title-card font-bold text-text-primary">9-12 წელი</span>
+<span class="text-body-sm text-text-muted">გაჯეტები &amp; სამეცნიერო</span>
+</button>
+<!-- Age 5 -->
+<button class="group p-4 rounded-lg bg-surface-bg tactile-extruded hover:tactile-floating active:tactile-inset transition-all flex flex-col items-center text-center col-span-2 sm:col-span-1">
+<div class="w-14 h-14 rounded-full bg-surface-card p-2.5 tactile-inset flex items-center justify-center mb-2 group-hover:scale-105 transition-transform">
+<span class="material-symbols-outlined text-[28px] text-secondary">videogame_asset</span>
+</div>
+<span class="text-title-card font-title-card font-bold text-text-primary">12+ წელი</span>
+<span class="text-body-sm text-text-muted">თინეიჯერული გეიმინგი</span>
+</button>
+</div>
+</section>
+<!-- 7. TRUST & SERVICES BAR (Alta's Key E-Commerce Differentiators) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-2">
+<div class="p-4 rounded-lg bg-surface-card tactile-extruded-sm border border-white flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-full bg-surface-bg tactile-inset flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[26px]">verified</span>
+</div>
+<div>
+<h4 class="text-title-card font-title-card font-bold text-text-primary text-[15px]">100% ორიგინალი</h4>
+<p class="text-body-sm font-body-sm text-text-muted">ავტორიზებული მომწოდებლები</p>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-card tactile-extruded-sm border border-white flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-full bg-surface-bg tactile-inset flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[26px]">security</span>
+</div>
+<div>
+<h4 class="text-title-card font-title-card font-bold text-text-primary text-[15px]">ოფიციალური გარანტია</h4>
+<p class="text-body-sm font-body-sm text-text-muted">ავტორიზებული სერვისცენტრი</p>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-card tactile-extruded-sm border border-white flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-full bg-surface-bg tactile-inset flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[26px]">local_shipping</span>
+</div>
+<div>
+<h4 class="text-title-card font-title-card font-bold text-text-primary text-[15px]">სწრაფი მიწოდება</h4>
+<p class="text-body-sm font-body-sm text-text-muted">თბილისსა და რეგიონებში</p>
+</div>
+</div>
+<div class="p-4 rounded-lg bg-surface-card tactile-extruded-sm border border-white flex items-center gap-3.5">
+<div class="w-12 h-12 rounded-full bg-surface-bg tactile-inset flex items-center justify-center shrink-0 text-secondary">
+<span class="material-symbols-outlined text-[26px]">credit_card</span>
+</div>
+<div>
+<h4 class="text-title-card font-title-card font-bold text-text-primary text-[15px]">0% ონლაინ განვადება</h4>
+<p class="text-body-sm font-body-sm text-text-muted">დამტკიცება 2 წუთში</p>
+</div>
+</div>
+</section>
+<!-- 8. NEWSLETTER TACTILE PILL BOX -->
+<section class="rounded-lg bg-gradient-to-r from-surface-card to-surface p-6 lg:p-8 tactile-extruded border border-white flex flex-col md:flex-row items-center justify-between gap-6">
+<div class="space-y-1 text-center md:text-left">
+<span class="text-label-caps font-label-caps text-secondary font-bold uppercase tracking-wider">ექსკლუზიური შეთავაზებები</span>
+<h3 class="text-headline-md font-headline-md font-bold text-text-primary">გამოიწერეთ Alta Kids-ის სიახლეები</h3>
+<p class="text-body-sm text-text-muted">მიიღეთ პირველმა ინფორმაცია სპეციალურ ფასდაკლებებსა და ახალ კოლექციებზე</p>
+</div>
+<div class="w-full md:w-auto flex-1 max-w-md">
+<form class="flex items-center gap-2" onsubmit="event.preventDefault()">
+<div class="relative flex-1">
+<span class="material-symbols-outlined absolute left-3.5 top-1/2 -translate-y-1/2 text-text-muted text-[20px]">mail</span>
+<input class="w-full pl-11 pr-4 py-3 bg-surface-bg rounded-xl tactile-inset border-none text-body-sm text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="თქვენი ელ-ფოსტის მისამართი..." type="email"/>
+</div>
+<button class="px-5 py-3 rounded-xl bg-text-primary text-white font-headline-sm text-body-sm font-semibold hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all shrink-0" type="submit">
+            გამოწერა
+          </button>
+</form>
+</div>
+</section>
+</main>
+<!-- 9. FOOTER (Mapped from Footer Shared Component JSON) -->
+<footer class="mt-12 bg-surface-card dark:bg-inverse-surface w-full rounded-t-lg shadow-[inset_0_3px_6px_#D1D9E6,inset_0_-3px_6px_#FFFFFF] dark:shadow-none transition-colors border-t border-white/60">
+<div class="w-full max-w-7xl mx-auto px-4 lg:px-margin py-space-xl flex flex-col gap-space-lg">
+<!-- Top Row: Brand & Links Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8">
+<!-- Brand Summary -->
+<div class="lg:col-span-2 space-y-4">
+<a class="flex items-center gap-2.5" href="#">
+<div class="w-9 h-9 rounded-full bg-primary-container text-white flex items-center justify-center space-cosmic-glow">
+<span class="material-symbols-outlined text-[20px] text-tertiary-fixed">rocket_launch</span>
+</div>
+<span class="text-headline-sm font-headline-sm font-bold text-primary dark:text-inverse-primary">Alta Kids</span>
+</a>
+<p class="text-body-sm font-body-sm text-text-muted dark:text-outline-variant max-w-sm leading-relaxed">
+            სათამაშოების და საბავშვო გაჯეტების ონლაინ ჰიპერმარკეტი. ლიცენზირებული საერთაშორისო ბრენდები, უმაღლესი ხარისხი და ოფიციალური საგარანტიო სერვისი მთელ საქართველოში.
+          </p>
+<div class="flex items-center gap-3 pt-1">
+<a class="w-9 h-9 rounded-full bg-surface-bg tactile-extruded-sm flex items-center justify-center text-text-primary hover:text-secondary active:scale-95 transition-transform" href="#" title="Facebook">
+<span class="material-symbols-outlined text-[18px]">public</span>
+</a>
+<a class="w-9 h-9 rounded-full bg-surface-bg tactile-extruded-sm flex items-center justify-center text-text-primary hover:text-secondary active:scale-95 transition-transform" href="#" title="Instagram">
+<span class="material-symbols-outlined text-[18px]">photo_camera</span>
+</a>
+<a class="w-9 h-9 rounded-full bg-surface-bg tactile-extruded-sm flex items-center justify-center text-text-primary hover:text-secondary active:scale-95 transition-transform" href="#" title="YouTube">
+<span class="material-symbols-outlined text-[18px]">smart_display</span>
+</a>
+</div>
+</div>
+<!-- Links Column 1: JSON Links mapped directly -->
+<div class="space-y-3">
+<h4 class="text-title-card font-title-card font-bold text-text-primary dark:text-inverse-on-surface">ინფორმაცია</h4>
+<ul class="space-y-2 text-body-sm font-body-sm">
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                ჩვენს შესახებ
+              </a>
+</li>
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                მიწოდების სერვისი
+              </a>
+</li>
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                საგარანტიო პირობები
+              </a>
+</li>
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                განვადება
+              </a>
+</li>
+</ul>
+</div>
+<!-- Links Column 2: JSON Links mapped directly -->
+<div class="space-y-3">
+<h4 class="text-title-card font-title-card font-bold text-text-primary dark:text-inverse-on-surface">მომსახურება</h4>
+<ul class="space-y-2 text-body-sm font-body-sm">
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                ფილიალები და სერვის-ცენტრები
+              </a>
+</li>
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                კონფიდენციალურობის პოლიტიკა
+              </a>
+</li>
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                ხშირად დასმული კითხვები
+              </a>
+</li>
+<li>
+<a class="text-text-muted dark:text-outline-variant hover:text-secondary dark:hover:text-secondary-fixed transition-colors duration-150" href="#">
+                ნივთის დაბრუნების წესები
+              </a>
+</li>
+</ul>
+</div>
+<!-- Contact & Working Hours -->
+<div class="space-y-3">
+<h4 class="text-title-card font-title-card font-bold text-text-primary dark:text-inverse-on-surface">კონტაქტი</h4>
+<div class="space-y-2 text-body-sm font-body-sm text-text-muted dark:text-outline-variant">
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">call</span>
+<span class="font-semibold text-text-primary">*7777 / 032 2 38 00 38</span>
+</p>
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">mail</span>
+<span>kids@alta.ge</span>
+</p>
+<p class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-secondary">schedule</span>
+<span>ორშ - კვირა: 10:00 - 21:00</span>
+</p>
+</div>
+</div>
+</div>
+<!-- Bottom Separator & Immutable Copyright Text from Shared Components JSON -->
+<div class="border-t border-shadow-dark/50 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+<!-- Copyright text verbatim as in JSON -->
+<p class="text-body-sm font-body-sm text-text-muted dark:text-outline-variant">
+          © 2025 Alta Kids. ყველა უფლება დაცულია. სათამაშოების და საბავშვო გაჯეტების ონლაინ ჰიპერმარკეტი.
+        </p>
+<!-- Payment methods badges with tactile inset look -->
+<div class="flex items-center gap-2 text-text-muted text-label-caps font-label-caps">
+<span class="px-2.5 py-1 rounded bg-surface-bg tactile-inset font-bold text-text-primary">VISA</span>
+<span class="px-2.5 py-1 rounded bg-surface-bg tactile-inset font-bold text-text-primary">Mastercard</span>
+<span class="px-2.5 py-1 rounded bg-surface-bg tactile-inset font-bold text-text-primary">AmEx</span>
+<span class="px-2.5 py-1 rounded bg-surface-bg tactile-inset font-bold text-secondary">TBC 0%</span>
+<span class="px-2.5 py-1 rounded bg-surface-bg tactile-inset font-bold text-orange-600">BOG 0%</span>
+</div>
+</div>
+</div>
+</footer>
+<!-- Micro-interactions: Live countdown timer logic -->
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      let hours = 7, minutes = 37, seconds = 42;
+      const hEl = document.getElementById("countdown-hours");
+      const mEl = document.getElementById("countdown-minutes");
+      const sEl = document.getElementById("countdown-seconds");
+
+      setInterval(() => {
+        if (seconds > 0) {
+          seconds--;
+        } else {
+          seconds = 59;
+          if (minutes > 0) {
+            minutes--;
+          } else {
+            minutes = 59;
+            if (hours > 0) hours--;
+          }
+        }
+        if (hEl) hEl.textContent = String(hours).padStart(2, '0');
+        if (mEl) mEl.textContent = String(minutes).padStart(2, '0');
+        if (sEl) sEl.textContent = String(seconds).padStart(2, '0');
+      }, 1000);
+    });
+  </script>
+</body></html>
