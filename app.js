@@ -34,6 +34,14 @@ function checkUrlParams() {
   if (brand) {
     STATE.selectedBrand = brand;
   }
+  const search = params.get('search');
+  if (search) {
+    STATE.searchQuery = search;
+    const searchInput = document.getElementById('search-input');
+    const mobileSearchInput = document.getElementById('mobile-search-input');
+    if (searchInput) searchInput.value = search;
+    if (mobileSearchInput) mobileSearchInput.value = search;
+  }
 }
 
 // Save State to LocalStorage
@@ -447,11 +455,26 @@ function toggleWishlist(productId, event) {
 
 // Setup UI Event Listeners
 function setupEventListeners() {
-  // Main search input
+  // Main search inputs (desktop + mobile)
   const searchInput = document.getElementById('search-input');
+  const mobileSearchInput = document.getElementById('mobile-search-input');
+
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
       STATE.searchQuery = e.target.value;
+      if (mobileSearchInput && mobileSearchInput.value !== e.target.value) {
+        mobileSearchInput.value = e.target.value;
+      }
+      renderProducts();
+    });
+  }
+
+  if (mobileSearchInput) {
+    mobileSearchInput.addEventListener('input', (e) => {
+      STATE.searchQuery = e.target.value;
+      if (searchInput && searchInput.value !== e.target.value) {
+        searchInput.value = e.target.value;
+      }
       renderProducts();
     });
   }
@@ -582,6 +605,9 @@ function resetFilters() {
   
   const searchInput = document.getElementById('search-input');
   if (searchInput) searchInput.value = '';
+
+  const mobileSearchInput = document.getElementById('mobile-search-input');
+  if (mobileSearchInput) mobileSearchInput.value = '';
 
   const brandSearchInput = document.getElementById('brand-search-input');
   if (brandSearchInput) brandSearchInput.value = '';

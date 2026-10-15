@@ -2,8 +2,14 @@
 <html class="light" lang="ka">
 <head>
   <meta charset="utf-8"/>
-  <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" name="viewport"/>
+  <meta name="theme-color" content="#0D1B2A"/>
   <title>კეპლერი - სათამაშოების და საბავშვო გაჯეტების ონლაინ ჰიპერმარკეტი</title>
+  
+  <!-- Rocket Favicon & Apple Touch Icon for Browser Address Bar & Tabs -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="alternate icon" type="image/png" href="favicon.png"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
   
   <!-- Google Fonts: Outfit & Rubik -->
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
@@ -64,34 +70,34 @@
 <body class="bg-surface-bg text-text-primary antialiased min-h-screen flex flex-col font-body selection:bg-secondary/20 selection:text-secondary">
 
   <!-- 1. TOP UTILITY BAR (Alta.ge e-commerce standard - Clean delivery & no branches) -->
-  <div class="w-full bg-surface-container-high/60 backdrop-blur-md text-text-muted text-xs border-b border-white/50">
-    <div class="max-w-7xl mx-auto px-4 lg:px-8 py-2 flex flex-wrap items-center justify-between gap-2">
+  <div class="w-full bg-surface-container-high/60 backdrop-blur-md text-text-muted text-xs border-b border-white/50 overflow-hidden">
+    <div class="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-1.5 sm:py-2 flex flex-col md:flex-row items-center justify-between gap-1.5 sm:gap-2">
       <!-- Shipping Announcement -->
-      <div class="flex items-center gap-2">
-        <span class="material-symbols-outlined text-secondary text-[18px]">local_shipping</span>
-        <span class="font-medium text-text-primary">უფასო საკურიერო მიწოდება 50 ₾-დან მთელ საქართველოში</span>
-        <span class="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-secondary"></span>
-        <span class="hidden md:inline text-text-muted">სტანდარტული მიწოდება 1-2 სამუშაო დღეში</span>
+      <div class="flex items-center gap-2 text-center md:text-left truncate max-w-full">
+        <span class="material-symbols-outlined text-secondary text-[17px] shrink-0">local_shipping</span>
+        <span class="font-medium text-text-primary text-[11px] sm:text-xs">უფასო საკურიერო მიწოდება 50 ₾-დან მთელ საქართველოში</span>
+        <span class="hidden md:inline-block w-1.5 h-1.5 rounded-full bg-secondary shrink-0"></span>
+        <span class="hidden md:inline text-text-muted text-[11px] sm:text-xs">სტანდარტული მიწოდება 1-2 სამუშაო დღეში</span>
       </div>
       <!-- Quick links & Phone -->
-      <div class="flex items-center gap-5">
+      <div class="flex items-center gap-3 sm:gap-5 text-xs flex-wrap justify-center">
         <a class="hover:text-secondary transition-colors duration-150 flex items-center gap-1" href="brands.html">
-          <span class="material-symbols-outlined text-[16px]">verified</span>
+          <span class="material-symbols-outlined text-[15px]">verified</span>
           <span>ბრენდები</span>
         </a>
-        <a class="hover:text-secondary transition-colors duration-150 flex items-center gap-1" href="#warranty">
-          <span class="material-symbols-outlined text-[16px]">verified_user</span>
+        <a class="hidden sm:flex hover:text-secondary transition-colors duration-150 items-center gap-1" href="#warranty">
+          <span class="material-symbols-outlined text-[15px]">verified_user</span>
           <span>გარანტია</span>
         </a>
-        <a class="hover:text-secondary transition-colors duration-150 flex items-center gap-1" href="#installments">
-          <span class="material-symbols-outlined text-[16px]">credit_card</span>
+        <a class="hidden sm:flex hover:text-secondary transition-colors duration-150 items-center gap-1" href="#installments">
+          <span class="material-symbols-outlined text-[15px]">credit_card</span>
           <span>0% განვადება</span>
         </a>
-        <div class="flex items-center gap-1 font-semibold text-text-primary bg-white/70 px-2.5 py-0.5 rounded-full tactile-extruded-sm">
-          <span class="material-symbols-outlined text-secondary text-[16px]">call</span>
+        <div class="flex items-center gap-1 font-semibold text-text-primary bg-white/70 px-2.5 py-0.5 rounded-full tactile-extruded-sm text-[11px] sm:text-xs">
+          <span class="material-symbols-outlined text-secondary text-[15px]">call</span>
           <a href="tel:+995596032525" class="hover:text-secondary transition-colors">596 03 25 25</a>
         </div>
-        <div class="flex items-center gap-1.5 text-text-primary font-medium cursor-pointer">
+        <div class="flex items-center gap-1.5 text-text-primary font-medium cursor-pointer text-[11px] sm:text-xs">
           <svg class="w-4 h-2.5 rounded-[2px] border border-shadow-dark/60 shrink-0 shadow-xs inline-block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 30 20" fill="#e40303">
             <path fill="#fff" d="m0 0h30v20H0z"/>
             <path d="m13 0h4v20h-4zM0 8h30v4H0z"/>
@@ -112,80 +118,100 @@
 
   <!-- 2. MAIN HEADER -->
   <header class="sticky top-0 z-40 bg-surface shadow-[0_4px_20px_rgba(209,217,230,0.6)] transition-all duration-200">
-    <div class="w-full max-w-7xl mx-auto px-4 lg:px-8 flex items-center justify-between gap-4 py-3 relative">
+    <div class="w-full max-w-7xl mx-auto px-3 sm:px-4 lg:px-8 py-2.5 sm:py-3 relative">
       
-      <!-- Brand & Catalog Cluster -->
-      <div class="flex items-center gap-4 shrink-0">
-        <!-- Logo -->
-        <a class="flex items-center gap-2.5 group tap-effect" href="#">
-          <div class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center space-cosmic-glow">
-            <span class="material-symbols-outlined text-[24px] text-tertiary-fixed">rocket_launch</span>
-          </div>
-          <div class="flex flex-col">
-            <span class="text-2xl font-bold font-heading tracking-tight text-primary leading-tight">კეპლერი</span>
-            <span class="text-[10px] font-bold text-secondary tracking-wider uppercase -mt-0.5">სათამაშოები &amp; გაჯეტები</span>
-          </div>
-        </a>
+      <!-- Top Row: Logo + Desktop Search + Action Icons -->
+      <div class="flex items-center justify-between gap-2 sm:gap-4">
+        
+        <!-- Brand & Catalog Cluster -->
+        <div class="flex items-center gap-3 sm:gap-4 shrink-0">
+          <!-- Logo -->
+          <a class="flex items-center gap-2 group tap-effect" href="index.html">
+            <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-primary text-white flex items-center justify-center space-cosmic-glow shrink-0">
+              <span class="material-symbols-outlined text-[22px] sm:text-[24px] text-tertiary-fixed">rocket_launch</span>
+            </div>
+            <div class="flex flex-col">
+              <span class="text-xl sm:text-2xl font-bold font-heading tracking-tight text-primary leading-tight">კეპლერი</span>
+              <span class="text-[9px] sm:text-[10px] font-bold text-secondary tracking-wider uppercase -mt-0.5">სათამაშოები &amp; გაჯეტები</span>
+            </div>
+          </a>
 
-        <!-- "კატალოგი" Button -->
-        <button id="catalog-dropdown-trigger" class="hidden sm:flex items-center gap-2 bg-text-primary text-white px-5 py-2.5 rounded-2xl font-heading text-sm font-semibold tracking-wide hover:shadow-[0_0_14px_rgba(58,134,255,0.4)] tap-effect" type="button">
-          <span class="material-symbols-outlined text-[20px] text-tertiary-fixed">apps</span>
-          <span>კატალოგი</span>
-          <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
-        </button>
-      </div>
+          <!-- "კატალოგი" Button -->
+          <button id="catalog-dropdown-trigger" class="hidden md:flex items-center gap-2 bg-text-primary text-white px-4 py-2.5 rounded-2xl font-heading text-sm font-semibold tracking-wide hover:shadow-[0_0_14px_rgba(58,134,255,0.4)] tap-effect shrink-0" type="button">
+            <span class="material-symbols-outlined text-[19px] text-tertiary-fixed">apps</span>
+            <span>კატალოგი</span>
+            <span class="material-symbols-outlined text-[18px]">keyboard_arrow_down</span>
+          </button>
+        </div>
 
-      <!-- Inset Search Bar -->
-      <div class="flex-1 max-w-xl mx-2">
-        <div class="relative flex items-center">
-          <span class="material-symbols-outlined absolute left-4 text-text-muted pointer-events-none text-[22px]">search</span>
-          <input 
-            id="search-input" 
-            class="w-full pl-12 pr-28 py-2.5 bg-surface-bg rounded-2xl tactile-inset border-none text-sm text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-secondary focus:outline-none transition-all" 
-            placeholder="მოძებნეთ სათამაშო, LEGO, რობოტი, ბრენდი, ასაკი..." 
-            type="search"
-          />
-          <button class="absolute right-1.5 px-4 py-1.5 bg-secondary hover:bg-secondary-container text-white text-xs font-semibold rounded-xl tactile-extruded-sm tap-effect">
-            ძებნა
+        <!-- Desktop Inset Search Bar (hidden on mobile, visible on md+) -->
+        <div class="hidden md:flex flex-1 max-w-xl mx-2">
+          <div class="relative flex items-center w-full">
+            <span class="material-symbols-outlined absolute left-4 text-text-muted pointer-events-none text-[22px]">search</span>
+            <input 
+              id="search-input" 
+              class="w-full pl-12 pr-28 py-2.5 bg-surface-bg rounded-2xl tactile-inset border-none text-sm text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-secondary focus:outline-none transition-all" 
+              placeholder="მოძებნეთ სათამაშო, LEGO, რობოტი, ბრენდი, ასაკი..." 
+              type="search"
+            />
+            <button class="absolute right-1.5 px-4 py-1.5 bg-secondary hover:bg-secondary-container text-white text-xs font-semibold rounded-xl tactile-extruded-sm tap-effect">
+              ძებნა
+            </button>
+          </div>
+        </div>
+
+        <!-- Action Buttons: Wishlist, Cart, Profile, Mobile Menu -->
+        <div class="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <!-- Compare Icon (Desktop only) -->
+          <button class="hidden lg:flex w-10 h-10 rounded-full bg-surface-card items-center justify-center text-text-primary tactile-extruded hover:text-secondary tap-effect" title="შედარება">
+            <span class="material-symbols-outlined text-[21px]">balance</span>
+          </button>
+
+          <!-- Wishlist -->
+          <button id="wishlist-trigger" class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-card flex items-center justify-center text-text-primary tactile-extruded hover:text-accent-sale tap-effect relative" title="სურვილები">
+            <span class="material-symbols-outlined text-[20px] sm:text-[21px]">favorite</span>
+            <span id="wishlist-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-accent-sale text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">3</span>
+          </button>
+
+          <!-- Cart Action -->
+          <button id="cart-trigger" class="flex items-center gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl bg-surface-card tactile-extruded text-text-primary hover:text-secondary tap-effect" title="კალათა">
+            <div class="relative">
+              <span class="material-symbols-outlined text-[20px] sm:text-[22px] text-secondary">shopping_cart</span>
+              <span id="cart-badge" class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-secondary text-white text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
+            </div>
+            <div class="hidden xl:flex flex-col text-left leading-tight">
+              <span class="text-[10px] uppercase font-bold text-text-muted">კალათა</span>
+              <span id="cart-price" class="text-xs font-bold text-text-primary font-heading">189.00 ₾</span>
+            </div>
+          </button>
+
+          <!-- Profile Action -->
+          <button onclick="openAuthModal()" class="w-9 h-9 sm:w-auto sm:px-3.5 sm:py-2 rounded-2xl bg-surface-card tactile-extruded text-text-primary hover:text-secondary tap-effect flex items-center justify-center gap-2" title="შესვლა">
+            <span class="material-symbols-outlined text-[20px] sm:text-[22px] text-text-muted">account_circle</span>
+            <span class="hidden md:inline text-xs font-semibold">შესვლა</span>
+          </button>
+
+          <!-- Mobile Menu Trigger -->
+          <button id="mobile-menu-trigger" class="lg:hidden w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-surface-card flex items-center justify-center text-text-primary tactile-extruded tap-effect" title="მენიუ">
+            <span class="material-symbols-outlined text-[22px] sm:text-[24px]">menu</span>
           </button>
         </div>
       </div>
 
-      <!-- Action Buttons: Wishlist, Cart, Profile -->
-      <div class="flex items-center gap-3 shrink-0">
-        <!-- Compare Icon -->
-        <button class="hidden lg:flex w-10 h-10 rounded-full bg-surface-card items-center justify-center text-text-primary tactile-extruded hover:text-secondary tap-effect" title="შედარება">
-          <span class="material-symbols-outlined text-[21px]">balance</span>
-        </button>
-
-        <!-- Wishlist -->
-        <button id="wishlist-trigger" class="w-10 h-10 rounded-full bg-surface-card flex items-center justify-center text-text-primary tactile-extruded hover:text-accent-sale tap-effect relative" title="სურვილები">
-          <span class="material-symbols-outlined text-[21px]">favorite</span>
-          <span id="wishlist-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-accent-sale text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">3</span>
-        </button>
-
-        <!-- Cart Action -->
-        <button id="cart-trigger" class="flex items-center gap-2.5 px-3.5 py-2 rounded-2xl bg-surface-card tactile-extruded text-text-primary hover:text-secondary tap-effect" title="კალათა">
-          <div class="relative">
-            <span class="material-symbols-outlined text-[22px] text-secondary">shopping_cart</span>
-            <span id="cart-badge" class="absolute -top-1.5 -right-1.5 w-4 h-4 bg-secondary text-white text-[10px] font-bold rounded-full flex items-center justify-center">2</span>
-          </div>
-          <div class="hidden xl:flex flex-col text-left leading-tight">
-            <span class="text-[10px] uppercase font-bold text-text-muted">კალათა</span>
-            <span id="cart-price" class="text-xs font-bold text-text-primary font-heading">189.00 ₾</span>
-          </div>
-        </button>
-
-        <!-- Profile Action -->
-        <button onclick="openAuthModal()" class="flex items-center gap-2 px-3.5 py-2 rounded-2xl bg-surface-card tactile-extruded text-text-primary hover:text-secondary tap-effect" title="შესვლა">
-          <span class="material-symbols-outlined text-[22px] text-text-muted">account_circle</span>
-          <span class="hidden md:inline text-xs font-semibold">შესვლა</span>
-        </button>
-
-        <!-- Mobile Menu Trigger -->
-        <button id="mobile-menu-trigger" class="lg:hidden w-10 h-10 rounded-full bg-surface-card flex items-center justify-center text-text-primary tactile-extruded tap-effect">
-          <span class="material-symbols-outlined text-[24px]">menu</span>
-        </button>
+      <!-- Mobile Search Bar (Row 2, full-width, perfectly fits phone screens without jitter) -->
+      <div class="mt-2.5 md:hidden w-full">
+        <div class="relative flex items-center w-full">
+          <span class="material-symbols-outlined absolute left-3.5 text-text-muted pointer-events-none text-[20px]">search</span>
+          <input 
+            id="mobile-search-input" 
+            class="w-full pl-10 pr-20 py-2 bg-surface-bg rounded-xl tactile-inset border-none text-xs text-text-primary placeholder:text-text-muted focus:ring-2 focus:ring-secondary focus:outline-none transition-all" 
+            placeholder="ძებნა: LEGO, რობოტი, ბრენდი, ასაკი..." 
+            type="search"
+          />
+          <button class="absolute right-1 px-3 py-1 bg-secondary hover:bg-secondary-container text-white text-[11px] font-semibold rounded-lg tactile-extruded-sm tap-effect">
+            ძებნა
+          </button>
+        </div>
       </div>
 
       <!-- Mega Menu Dropdown -->
