@@ -6,3 +6,6 @@ yarn-error.log*
 .env
 .idea/
 .vscode/
+
+# არქივები (კოდის ZIP) — git-ში არ აიტვირთება
+*.zip
