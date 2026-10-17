@@ -97,7 +97,11 @@
           <span class="material-symbols-outlined text-secondary text-[15px]">call</span>
           <a href="tel:+995596032525" class="hover:text-secondary transition-colors">596 03 25 25</a>
         </div>
-        <div class="flex items-center gap-1.5 text-text-primary font-medium cursor-pointer text-[11px] sm:text-xs">
+        <a href="admin.html" class="flex items-center gap-1 font-bold text-white bg-primary hover:bg-secondary px-2.5 py-0.5 rounded-full text-[11px] transition-colors">
+          <span class="material-symbols-outlined text-[#00F0FF] text-[14px]">admin_panel_settings</span>
+          <span>Admin</span>
+        </a>
+        <div class="flex items-center gap-1.5 text-text-primary font-medium text-[11px] sm:text-xs">
           <svg class="w-4 h-2.5 rounded-[2px] border border-shadow-dark/60 shrink-0 shadow-xs inline-block" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 30 20" fill="#e40303">
             <path fill="#fff" d="m0 0h30v20H0z"/>
             <path d="m13 0h4v20h-4zM0 8h30v4H0z"/>
@@ -110,7 +114,11 @@
             </g>
             <use y="12" xlink:href="#c-geo"/>
           </svg>
-          <span>GEO / GEL ₾</span>
+          <select id="lang-switcher" onchange="switchLanguage(this.value)" class="bg-transparent border-none py-0 pl-0.5 pr-4 text-[11px] font-bold text-text-primary focus:ring-0 cursor-pointer">
+            <option value="ka">KA / ₾</option>
+            <option value="en">EN / ₾</option>
+            <option value="ru">RU / ₾</option>
+          </select>
         </div>
       </div>
     </div>
@@ -452,59 +460,54 @@
         </button>
       </div>
 
-      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
-        <!-- Category 1 -->
-        <div onclick="STATE.selectedCategory='lego'; renderProducts();" class="group rounded-2xl bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
-          <div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
-            <span class="material-symbols-outlined text-[32px] text-accent-sale">extension</span>
+      <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-3.5">
+        <div onclick="STATE.selectedCategory='construction'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-badge-yellow">front_loader</span>
           </div>
-          <span class="font-heading text-sm font-semibold text-text-primary group-hover:text-secondary leading-tight">LEGO &amp; კონსტრუქტორი</span>
-          <span class="text-[11px] text-text-muted mt-1">340+ მოდელი</span>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">სამშენებლო ტექნიკა</span>
         </div>
 
-        <!-- Category 2 -->
-        <div onclick="STATE.selectedCategory='robots'; renderProducts();" class="group rounded-2xl bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
-          <div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
-            <span class="material-symbols-outlined text-[32px] text-secondary">smart_toy</span>
+        <div onclick="STATE.selectedCategory='robots'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-secondary">smart_toy</span>
           </div>
-          <span class="font-heading text-sm font-semibold text-text-primary group-hover:text-secondary leading-tight">რობოტები &amp; STEM</span>
-          <span class="text-[11px] text-text-muted mt-1">120+ მოდელი</span>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">რობოტები</span>
         </div>
 
-        <!-- Category 3 -->
-        <div onclick="STATE.selectedCategory='plush'; renderProducts();" class="group rounded-2xl bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
-          <div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
-            <span class="material-symbols-outlined text-[32px] text-badge-yellow">cruelty_free</span>
+        <div onclick="STATE.selectedCategory='rc'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-accent-sale">directions_car</span>
           </div>
-          <span class="font-heading text-sm font-semibold text-text-primary group-hover:text-secondary leading-tight">რბილი &amp; განმავითარებელი</span>
-          <span class="text-[11px] text-text-muted mt-1">210+ მოდელი</span>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">RC ტექნიკა</span>
         </div>
 
-        <!-- Category 4 -->
-        <div onclick="STATE.selectedCategory='boardgames'; renderProducts();" class="group rounded-2xl bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
-          <div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
-            <span class="material-symbols-outlined text-[32px] text-emerald-600">casino</span>
+        <div onclick="STATE.selectedCategory='building'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-emerald-600">extension</span>
           </div>
-          <span class="font-heading text-sm font-semibold text-text-primary group-hover:text-secondary leading-tight">სამაგიდო თამაშები</span>
-          <span class="text-[11px] text-text-muted mt-1">180+ მოდელი</span>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">კონსტრუქტორები</span>
         </div>
 
-        <!-- Category 5 -->
-        <div onclick="STATE.selectedCategory='rc-cars'; renderProducts();" class="group rounded-2xl bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
-          <div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
-            <span class="material-symbols-outlined text-[32px] text-secondary-container">toys</span>
+        <div onclick="STATE.selectedCategory='space'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-indigo-600">rocket_launch</span>
           </div>
-          <span class="font-heading text-sm font-semibold text-text-primary group-hover:text-secondary leading-tight">დისტანციური ტრანსპორტი</span>
-          <span class="text-[11px] text-text-muted mt-1">95+ მოდელი</span>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">კოსმოსი</span>
         </div>
 
-        <!-- Category 6 -->
-        <div onclick="STATE.selectedCategory='gadgets'; renderProducts();" class="group rounded-2xl bg-surface-card p-4 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
-          <div class="w-16 h-16 rounded-full bg-surface-bg p-3 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-3">
-            <span class="material-symbols-outlined text-[32px] text-text-primary">watch</span>
+        <div onclick="STATE.selectedCategory='roleplay'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-pink-600">medical_services</span>
           </div>
-          <span class="font-heading text-sm font-semibold text-text-primary group-hover:text-secondary leading-tight">ჭკვიანი საათები &amp; აუდიო</span>
-          <span class="text-[11px] text-text-muted mt-1">85+ მოდელი</span>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">როლური თამაშები</span>
+        </div>
+
+        <div onclick="STATE.selectedCategory='educational'; renderProducts();" class="group rounded-2xl bg-surface-card p-3.5 tactile-extruded hover:tactile-floating transition-all duration-200 flex flex-col items-center text-center border border-white cursor-pointer tap-effect">
+          <div class="w-14 h-14 rounded-full bg-surface-bg p-2.5 tactile-inset group-hover:scale-105 transition-transform flex items-center justify-center mb-2.5">
+            <span class="material-symbols-outlined text-[28px] text-cyan-600">science</span>
+          </div>
+          <span class="font-heading text-xs font-bold text-text-primary group-hover:text-secondary leading-tight">საგანმანათლებლო</span>
         </div>
       </div>
     </section>
@@ -515,20 +518,22 @@
         <div>
           <div class="flex items-center gap-2">
             <span class="material-symbols-outlined text-accent-sale text-[26px]">local_fire_department</span>
-            <h2 class="text-2xl font-bold font-heading text-text-primary">სათამაშოების კატალოგი</h2>
+            <h2 id="catalog-heading" class="text-2xl font-bold font-heading text-text-primary">სათამაშოების კატალოგი (18 პოზიცია)</h2>
           </div>
-          <p class="text-xs text-text-muted mt-0.5">ოფიციალური საერთაშორისო ბრენდების სათამაშოები და საბავშვო გაჯეტები</p>
+          <p class="text-xs text-text-muted mt-0.5">შერჩეული სათამაშოები ქართული აღწერით, გარანტიითა და სწრაფი მიწოდებით</p>
         </div>
 
         <!-- Filter tabs pills & Sort dropdown -->
         <div class="flex flex-wrap items-center gap-2.5">
-          <div class="flex items-center gap-2 overflow-x-auto no-scrollbar py-1">
-            <button data-category-filter="all" class="px-4 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold space-cosmic-glow tap-effect">ყველა</button>
-            <button data-category-filter="lego" class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">LEGO</button>
-            <button data-category-filter="robots" class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">რობოტები</button>
-            <button data-category-filter="gadgets" class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">გაჯეტები</button>
-            <button data-category-filter="boardgames" class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">სამაგიდო</button>
-            <button data-category-filter="rc-cars" class="px-4 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">RC ტრანსპორტი</button>
+          <div class="flex items-center gap-1.5 overflow-x-auto no-scrollbar py-1">
+            <button data-category-filter="all" class="px-3.5 py-1.5 rounded-full bg-primary-container text-white text-xs font-semibold space-cosmic-glow tap-effect">ყველა</button>
+            <button data-category-filter="construction" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">სამშენებლო ტექნიკა</button>
+            <button data-category-filter="robots" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">რობოტები</button>
+            <button data-category-filter="rc" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">RC ტექნიკა</button>
+            <button data-category-filter="building" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">კონსტრუქტორები</button>
+            <button data-category-filter="space" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">კოსმოსი</button>
+            <button data-category-filter="roleplay" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">როლური</button>
+            <button data-category-filter="educational" class="px-3.5 py-1.5 rounded-full bg-surface-card text-text-muted text-xs font-semibold tactile-extruded hover:text-text-primary tap-effect">საგანმანათლებლო</button>
           </div>
 
           <!-- Sort Select -->
@@ -879,52 +884,56 @@
           <h3 class="font-heading font-bold text-xl text-text-primary">შეკვეთის გაფორმება</h3>
         </div>
 
-        <form onsubmit="submitOrder(event)" class="space-y-4">
+        <form onsubmit="submitOrder(event)" class="space-y-3.5">
           <div>
             <label class="block text-xs font-semibold text-text-primary mb-1">სახელი და გვარი *</label>
-            <input class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="გიორგი ბერიძე" required type="text"/>
+            <input id="chk-name" class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="გიორგი ბერიძე" required type="text"/>
           </div>
 
           <div class="grid grid-cols-2 gap-3">
             <div>
               <label class="block text-xs font-semibold text-text-primary mb-1">მობილური ნომერი *</label>
-              <input class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="599 12 34 56" required type="tel"/>
+              <input id="chk-phone" class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="596 03 25 25" required type="tel"/>
             </div>
             <div>
-              <label class="block text-xs font-semibold text-text-primary mb-1">ქალაქი / რეგიონი *</label>
-              <select class="w-full px-3 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none">
-                <option value="tbilisi">თბილისი (1-2 სამუშაო დღე)</option>
-                <option value="batumi">ბათუმი (1-2 სამუშაო დღე)</option>
-                <option value="kutaisi">ქუთაისი (1-2 სამუშაო დღე)</option>
-                <option value="rustavi">რუსთავი (1-2 სამუშაო დღე)</option>
-                <option value="other">სხვა რეგიონი (2-3 სამუშაო დღე)</option>
+              <label class="block text-xs font-semibold text-text-primary mb-1">მიწოდების მეთოდი *</label>
+              <select id="chk-delivery" class="w-full px-3 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none font-semibold">
+                <option value="კურიერი (თბილისი)">კურიერი — თბილისი (1-2 დღე)</option>
+                <option value="კურიერი (რეგიონები)">კურიერი — რეგიონები (2-3 დღე)</option>
+                <option value="საქართველოს ფოსტა">საქართველოს ფოსტა (ფილიალი)</option>
               </select>
             </div>
           </div>
 
-          <div>
-            <label class="block text-xs font-semibold text-text-primary mb-1">ზუსტი მისამართი (კურიერის ჩასაბარებლად) *</label>
-            <input class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="ჭავჭავაძის გამზ. 37, ბინა 12" required type="text"/>
+          <div class="grid grid-cols-3 gap-2">
+            <div>
+              <label class="block text-xs font-semibold text-text-primary mb-1">ქალაქი *</label>
+              <input id="chk-city" value="თბილისი" class="w-full px-3 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" required type="text"/>
+            </div>
+            <div class="col-span-2">
+              <label class="block text-xs font-semibold text-text-primary mb-1">ზუსტი მისამართი *</label>
+              <input id="chk-address" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="ჭავჭავაძის გამზ. 37, ბინა 12" required type="text"/>
+            </div>
           </div>
 
           <div>
-            <label class="block text-xs font-semibold text-text-primary mb-1.5">გადახდის მეთოდი</label>
+            <label class="block text-xs font-semibold text-text-primary mb-1.5">გადახდის მეთოდი (ქართული Gateway)</label>
             <div class="grid grid-cols-2 gap-2 text-xs">
               <label class="p-2.5 rounded-xl bg-surface-bg tactile-inset-sm flex items-center gap-2 cursor-pointer border border-transparent hover:border-secondary">
-                <input type="radio" name="payment" value="card" checked class="text-secondary focus:ring-secondary"/>
-                <span class="font-medium">ბარათით ონლაინ</span>
+                <input type="radio" name="payment" value="TBC Pay" checked class="text-secondary focus:ring-secondary"/>
+                <span class="font-bold text-primary">TBC Pay (თიბისი)</span>
               </label>
               <label class="p-2.5 rounded-xl bg-surface-bg tactile-inset-sm flex items-center gap-2 cursor-pointer border border-transparent hover:border-secondary">
-                <input type="radio" name="payment" value="cash" class="text-secondary focus:ring-secondary"/>
-                <span class="font-medium">კურიერთან ნაღდი</span>
+                <input type="radio" name="payment" value="BOG Pay (საქართველოს ბანკი)" class="text-secondary focus:ring-secondary"/>
+                <span class="font-bold text-orange-600">BOG Pay (საქ. ბანკი)</span>
               </label>
               <label class="p-2.5 rounded-xl bg-surface-bg tactile-inset-sm flex items-center gap-2 cursor-pointer border border-transparent hover:border-secondary">
-                <input type="radio" name="payment" value="tbc" class="text-secondary focus:ring-secondary"/>
-                <span class="font-medium">TBC 0% განვადება</span>
+                <input type="radio" name="payment" value="Flitt" class="text-secondary focus:ring-secondary"/>
+                <span class="font-bold text-emerald-700">Flitt (Visa / MC)</span>
               </label>
               <label class="p-2.5 rounded-xl bg-surface-bg tactile-inset-sm flex items-center gap-2 cursor-pointer border border-transparent hover:border-secondary">
-                <input type="radio" name="payment" value="bog" class="text-secondary focus:ring-secondary"/>
-                <span class="font-medium">BOG 0% განვადება</span>
+                <input type="radio" name="payment" value="კურიერთან გადახდა" class="text-secondary focus:ring-secondary"/>
+                <span class="font-medium">კურიერთან გადახდა</span>
               </label>
             </div>
           </div>
@@ -935,7 +944,7 @@
               <span id="checkout-total-display" class="font-heading font-bold text-xl text-secondary">189.00 ₾</span>
             </div>
             <button type="submit" class="px-6 py-3 rounded-xl bg-text-primary text-white font-heading font-semibold text-xs hover:shadow-[0_0_14px_rgba(58,134,255,0.4)] tap-effect">
-              შეკვეთის დადასტურება
+              გადახდა და დადასტურება
             </button>
           </div>
         </form>
@@ -943,34 +952,26 @@
     </div>
   </div>
 
-  <!-- AUTH / LOGIN MODAL -->
+  <!-- USER ACCOUNT MODAL (შეკვეთების ისტორია, Wishlist, მისამართები) -->
   <div id="auth-modal" class="hidden fixed inset-0 z-50 modal-backdrop items-center justify-center p-4">
-    <div class="relative bg-surface-card rounded-3xl p-6 sm:p-8 max-w-md w-full border border-white tactile-floating overflow-hidden">
+    <div class="relative bg-surface-card rounded-3xl p-6 max-w-2xl w-full border border-white tactile-floating overflow-hidden max-h-[90vh] flex flex-col">
       <button onclick="closeAuthModal()" class="absolute top-4 right-4 w-9 h-9 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-text-primary hover:text-accent-sale tap-effect">
         <span class="material-symbols-outlined text-[20px]">close</span>
       </button>
 
-      <div class="text-center mb-6">
-        <div class="w-12 h-12 rounded-full bg-primary text-white mx-auto flex items-center justify-center space-cosmic-glow mb-2">
-          <span class="material-symbols-outlined text-2xl text-tertiary-fixed">lock</span>
+      <div class="flex items-center gap-3 mb-4">
+        <div class="w-11 h-11 rounded-full bg-primary text-white flex items-center justify-center space-cosmic-glow">
+          <span class="material-symbols-outlined text-xl text-tertiary-fixed">person</span>
         </div>
-        <h3 class="font-heading font-bold text-xl text-text-primary">ავტორიზაცია</h3>
-        <p class="text-xs text-text-muted mt-1">შედით თქვენს კეპლერის ანგარიშზე</p>
+        <div>
+          <h3 class="font-heading font-bold text-lg text-text-primary">მომხმარებლის კაბინეტი</h3>
+          <p class="text-xs text-text-muted">შეკვეთების ისტორია, სურვილების სია და მისამართები</p>
+        </div>
       </div>
 
-      <form onsubmit="event.preventDefault(); showToast('წარმატებით შეხვედით სისტემაში!', 'success'); closeAuthModal();" class="space-y-4">
-        <div>
-          <label class="block text-xs font-semibold text-text-primary mb-1">ელ-ფოსტა ან მობილური</label>
-          <input class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="name@example.ge ან 599..." required type="text"/>
-        </div>
-        <div>
-          <label class="block text-xs font-semibold text-text-primary mb-1">პაროლი</label>
-          <input class="w-full px-4 py-2.5 rounded-xl bg-surface-bg tactile-inset border-none text-xs text-text-primary focus:ring-2 focus:ring-secondary focus:outline-none" placeholder="••••••••" required type="password"/>
-        </div>
-        <button type="submit" class="w-full py-3 rounded-xl bg-text-primary text-white font-heading font-semibold text-xs hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] tap-effect">
-          შესვლა
-        </button>
-      </form>
+      <div id="user-account-content" class="overflow-y-auto space-y-4 pr-1 text-xs">
+        <!-- Rendered by openAuthModal() in app.js -->
+      </div>
     </div>
   </div>
 

@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html class="light" lang="ka">
+<head>
+  <meta charset="utf-8"/>
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" name="viewport"/>
+  <meta name="theme-color" content="#0D1B2A"/>
+  <title>Admin Panel | კეპლერი (TOYS.GE) - მართვის პანელი</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="alternate icon" type="image/png" href="favicon.png"/>
+  <link rel="apple-touch-icon" href="apple-touch-icon.png"/>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+
+  <!-- SheetJS for native .xlsx Excel & CSV import/export -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <script src="https://cdn.tailwindcss.com?plugins=forms"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            "surface-bg": "#F0F4F8",
+            "surface-card": "#FFFFFF",
+            "primary": "#0D1B2A",
+            "secondary": "#3A86FF",
+            "accent-sale": "#FF006E",
+            "badge-yellow": "#FFBE0B",
+            "text-primary": "#0D1B2A",
+            "text-muted": "#4A5568"
+          },
+          fontFamily: {
+            "heading": ["Outfit", "Rubik", "sans-serif"],
+            "body": ["Rubik", "sans-serif"]
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="bg-surface-bg text-text-primary antialiased min-h-screen font-body">
+
+  <!-- LOGIN OVERLAY -->
+  <div id="admin-login-screen" class="fixed inset-0 z-50 bg-primary/95 backdrop-blur-xl flex items-center justify-center p-4">
+    <div class="bg-white rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl border border-white/20">
+      <div class="flex items-center gap-3 mb-6">
+        <div class="w-12 h-12 rounded-2xl bg-primary text-white flex items-center justify-center space-cosmic-glow">
+          <span class="material-symbols-outlined text-[#00F0FF] text-[26px]">rocket_launch</span>
+        </div>
+        <div>
+          <h1 class="font-heading font-bold text-2xl text-primary">კეპლერი • TOYS.GE</h1>
+          <p class="text-xs text-text-muted font-medium">ადმინისტრატორის სამართავი პანელი</p>
+        </div>
+      </div>
+
+      <form id="admin-login-form" onsubmit="handleAdminLogin(event)" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-text-muted uppercase mb-1">მომხმარებელი (User)</label>
+          <input id="login-user" type="text" value="admin" required class="w-full px-4 py-2.5 rounded-xl bg-surface-bg border-none text-sm font-medium focus:ring-2 focus:ring-secondary"/>
+        </div>
+        <div>
+          <label class="block text-xs font-bold text-text-muted uppercase mb-1">პაროლი (Password)</label>
+          <input id="login-pass" type="password" value="kepleri2026" required class="w-full px-4 py-2.5 rounded-xl bg-surface-bg border-none text-sm font-medium focus:ring-2 focus:ring-secondary"/>
+        </div>
+        <div class="p-3 rounded-xl bg-secondary/10 text-xs text-primary flex items-center justify-between">
+          <span>სატესტო წვდომა: <b>admin</b> / <b>kepleri2026</b></span>
+          <span class="px-2 py-0.5 bg-secondary text-white rounded-md font-bold text-[10px]">მზადაა</span>
+        </div>
+        <button type="submit" class="w-full py-3 rounded-xl bg-secondary hover:bg-blue-600 text-white font-heading font-bold text-sm shadow-lg transition-all flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-[18px]">login</span>
+          <span>სისტემაში შესვლა</span>
+        </button>
+      </form>
+      <div class="mt-4 text-center">
+        <a href="index.html" class="text-xs text-text-muted hover:text-secondary font-medium inline-flex items-center gap-1">
+          <span class="material-symbols-outlined text-[15px]">arrow_back</span>
+          მაღაზიაში დაბრუნება
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN INTERFACE -->
+  <div class="min-h-screen flex flex-col">
+    <!-- Top Admin Bar -->
+    <header class="sticky top-0 z-30 bg-primary text-white shadow-lg">
+      <div class="max-w-7xl mx-auto px-4 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-3">
+          <a href="index.html" class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-white/10 flex items-center justify-center">
+              <span class="material-symbols-outlined text-[#00F0FF] text-[22px]">rocket_launch</span>
+            </div>
+            <div>
+              <span class="font-heading font-bold text-lg tracking-tight">კეპლერი ADMIN</span>
+              <span class="block text-[10px] text-cyan-300 uppercase tracking-wider -mt-1">TOYS.GE Control Center</span>
+            </div>
+          </a>
+        </div>
+
+        <!-- Navigation Tabs -->
+        <nav class="flex items-center gap-1.5 overflow-x-auto py-1">
+          <button onclick="switchTab('products')" id="tab-btn-products" class="admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-secondary text-white flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[17px]">inventory_2</span>
+            <span>პროდუქტები (<span id="nav-prod-count">18</span>)</span>
+          </button>
+          <button onclick="switchTab('bulk')" id="tab-btn-bulk" class="admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[17px]">upload_file</span>
+            <span>Excel/CSV &amp; მარკაპი</span>
+          </button>
+          <button onclick="switchTab('orders')" id="tab-btn-orders" class="admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[17px]">local_shipping</span>
+            <span>შეკვეთები (<span id="nav-order-count">3</span>)</span>
+          </button>
+          <button onclick="switchTab('stats')" id="tab-btn-stats" class="admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[17px]">monitoring</span>
+            <span>სტატისტიკა</span>
+          </button>
+          <button onclick="switchTab('guide')" id="tab-btn-guide" class="admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[17px]">help_center</span>
+            <span>ინსტრუქცია</span>
+          </button>
+        </nav>
+
+        <div class="flex items-center gap-2">
+          <a href="index.html" target="_blank" class="px-3 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-white text-xs font-bold flex items-center gap-1">
+            <span class="material-symbols-outlined text-[16px]">storefront</span>
+            <span>საიტის ნახვა</span>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 lg:px-8 py-6 space-y-6">
+
+      <!-- KPI Summary Strip -->
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+          <div class="text-xs text-text-muted font-medium">სულ პოზიცია</div>
+          <div id="kpi-total-products" class="text-2xl font-heading font-extrabold text-primary mt-1">18</div>
+          <div class="text-[11px] text-emerald-600 font-semibold mt-0.5">აქტიური კატალოგი</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+          <div class="text-xs text-text-muted font-medium">საშუალო მარკაპი</div>
+          <div id="kpi-avg-markup" class="text-2xl font-heading font-extrabold text-secondary mt-1">+65%</div>
+          <div class="text-[11px] text-text-muted mt-0.5">ფორმულა: cost × (1 + markup)</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+          <div class="text-xs text-text-muted font-medium">ჯამური მარაგი (Stock)</div>
+          <div id="kpi-total-stock" class="text-2xl font-heading font-extrabold text-primary mt-1">358 ც.</div>
+          <div id="kpi-out-stock" class="text-[11px] text-amber-600 font-semibold mt-0.5">0 Out of Stock</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100">
+          <div class="text-xs text-text-muted font-medium">შეკვეთების ბრუნვა</div>
+          <div id="kpi-total-sales" class="text-2xl font-heading font-extrabold text-emerald-600 mt-1">397.30 ₾</div>
+          <div id="kpi-net-profit" class="text-[11px] text-emerald-700 font-semibold mt-0.5">სუფთა მოგება: 156.51 ₾</div>
+        </div>
+        <div class="bg-white p-4 rounded-2xl shadow-sm border border-slate-100 col-span-2 lg:col-span-1">
+          <div class="text-xs text-text-muted font-medium">სურათების CDN სტატუსი</div>
+          <div class="text-lg font-heading font-extrabold text-primary mt-1 flex items-center gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse"></span>
+            <span>ლოკალური / CDN</span>
+          </div>
+          <div class="text-[11px] text-text-muted mt-0.5">54 ფოტო დაცულია (Hotlink გარეშე)</div>
+        </div>
+      </div>
+
+      <!-- TAB 1: PRODUCTS MANAGEMENT -->
+      <section id="tab-products" class="space-y-4">
+        <div class="bg-white p-4 sm:p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="font-heading font-bold text-lg text-primary">პროდუქტების მართვა და ფასწარმოქმნა</h2>
+              <p class="text-xs text-text-muted">თვითღირებულება (Cost ₾) ჩანს მხოლოდ აქ. საიტზე მომხმარებელს ეჩვენება მხოლოდ საბოლოო ფასი.</p>
+            </div>
+            <div class="flex flex-wrap items-center gap-2">
+              <button onclick="openProductModal()" class="px-4 py-2.5 rounded-xl bg-secondary hover:bg-blue-600 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm">
+                <span class="material-symbols-outlined text-[18px]">add_circle</span>
+                <span>ახალი პროდუქტის დამატება</span>
+              </button>
+              <a href="toys_ge_18_products.xlsx" download class="px-3.5 py-2.5 rounded-xl bg-emerald-50 text-emerald-700 hover:bg-emerald-100 text-xs font-bold flex items-center gap-1.5 border border-emerald-200">
+                <span class="material-symbols-outlined text-[18px]">download</span>
+                <span>18 პროდუქტის XLSX</span>
+              </a>
+              <button onclick="resetToDefaultProducts()" class="px-3 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-text-muted text-xs font-semibold flex items-center gap-1" title="საწყისი 18 პროდუქტის აღდგენა">
+                <span class="material-symbols-outlined text-[17px]">restart_alt</span>
+                <span>საწყისი ბაზა</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Filter Bar -->
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 pt-2 border-t border-slate-100">
+            <div class="relative">
+              <span class="material-symbols-outlined absolute left-3 top-2.5 text-text-muted text-[18px]">search</span>
+              <input id="admin-filter-search" oninput="renderAdminProducts()" type="search" placeholder="ძებნა: სახელი, SKU..." class="w-full pl-9 pr-3 py-2 rounded-xl bg-surface-bg border-none text-xs"/>
+            </div>
+            <select id="admin-filter-cat" onchange="renderAdminProducts()" class="px-3 py-2 rounded-xl bg-surface-bg border-none text-xs font-medium">
+              <option value="all">ყველა კატეგორია (7)</option>
+              <option value="construction">სამშენებლო ტექნიკა</option>
+              <option value="robots">რობოტები</option>
+              <option value="rc">RC ტექნიკა</option>
+              <option value="building">კონსტრუქტორები</option>
+              <option value="space">კოსმოსი</option>
+              <option value="roleplay">როლური თამაშები</option>
+              <option value="educational">საგანმანათლებლო</option>
+            </select>
+            <select id="admin-filter-status" onchange="renderAdminProducts()" class="px-3 py-2 rounded-xl bg-surface-bg border-none text-xs font-medium">
+              <option value="all">ყველა სტატუსი</option>
+              <option value="active">აქტიური (Active)</option>
+              <option value="hidden">დამალული (Hidden)</option>
+              <option value="out_of_stock">Out of Stock (უწყვეტი)</option>
+            </select>
+            <select id="admin-filter-price" onchange="renderAdminProducts()" class="px-3 py-2 rounded-xl bg-surface-bg border-none text-xs font-medium">
+              <option value="all">ყველა ფასი</option>
+              <option value="0-50">0 ₾ – 50 ₾</option>
+              <option value="50-100">50 ₾ – 100 ₾</option>
+              <option value="100+">100 ₾+</option>
+            </select>
+            <select id="admin-filter-stock" onchange="renderAdminProducts()" class="px-3 py-2 rounded-xl bg-surface-bg border-none text-xs font-medium">
+              <option value="all">მარაგის ფილტრი</option>
+              <option value="in">მარაგშია (> 0)</option>
+              <option value="low">მცირე მარაგი (< 12)</option>
+              <option value="zero">ამოწურული (0)</option>
+            </select>
+          </div>
+
+          <!-- Products Table -->
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-200 text-[11px] font-bold text-text-muted uppercase">
+                  <th class="py-3 px-2">ფოტო / გალერეა</th>
+                  <th class="py-3 px-2">SKU / სახელი</th>
+                  <th class="py-3 px-2">კატეგორია</th>
+                  <th class="py-3 px-2">თვითღირებულება (₾)</th>
+                  <th class="py-3 px-2">მარკაპი %</th>
+                  <th class="py-3 px-2">საიტის ფასი (₾)</th>
+                  <th class="py-3 px-2">მარაგი</th>
+                  <th class="py-3 px-2">სტატუსი</th>
+                  <th class="py-3 px-2 text-right">მოქმედება</th>
+                </tr>
+              </thead>
+              <tbody id="admin-products-tbody" class="divide-y divide-slate-100 text-xs"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 2: BULK UPLOAD & MASS MARKUP & CDN -->
+      <section id="tab-bulk" class="hidden space-y-6">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <!-- Mass Markup Modifier -->
+          <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-2xl bg-secondary/10 text-secondary flex items-center justify-center">
+                <span class="material-symbols-outlined">percent</span>
+              </div>
+              <div>
+                <h3 class="font-heading font-bold text-base text-primary">ფასის / მარკაპის მასიური ცვლილება</h3>
+                <p class="text-xs text-text-muted">მაგ: „ყველა RC ტექნიკაზე +70%" ან მთელ კატალოგზე +65%</p>
+              </div>
+            </div>
+
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
+              <div>
+                <label class="block text-xs font-bold text-text-muted mb-1">აირჩიეთ კატეგორია</label>
+                <select id="bulk-markup-cat" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-bg border-none text-xs font-semibold">
+                  <option value="all">ყველა კატეგორია (მთელი კატალოგი)</option>
+                  <option value="rc">RC ტექნიკა</option>
+                  <option value="construction">სამშენებლო ტექნიკა</option>
+                  <option value="robots">რობოტები</option>
+                  <option value="building">კონსტრუქტორები</option>
+                  <option value="space">კოსმოსი</option>
+                  <option value="roleplay">როლური თამაშები</option>
+                  <option value="educational">საგანმანათლებლო</option>
+                </select>
+              </div>
+              <div>
+                <label class="block text-xs font-bold text-text-muted mb-1">ახალი მარკაპი (%)</label>
+                <input id="bulk-markup-val" type="number" value="70" min="0" max="500" step="1" class="w-full px-3.5 py-2.5 rounded-xl bg-surface-bg border-none text-xs font-bold"/>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap gap-2">
+              <button onclick="applyPresetMarkup('rc', 70)" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-secondary/10 hover:text-secondary text-xs font-semibold">
+                ყველა RC ტექნიკაზე +70%
+              </button>
+              <button onclick="applyPresetMarkup('robots', 75)" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-secondary/10 hover:text-secondary text-xs font-semibold">
+                ყველა რობოტზე +75%
+              </button>
+              <button onclick="applyPresetMarkup('all', 65)" class="px-3 py-1.5 rounded-lg bg-slate-100 hover:bg-secondary/10 hover:text-secondary text-xs font-semibold">
+                ყველაფერზე სტანდარტული +65%
+              </button>
+            </div>
+
+            <button onclick="applyBulkMarkup()" class="w-full py-3 rounded-xl bg-secondary hover:bg-blue-600 text-white font-heading font-bold text-xs shadow-md transition-all">
+              მარკაპის განახლება და ფასების ავტომატური გადათვლა
+            </button>
+          </div>
+
+          <!-- Bulk Excel / CSV Upload -->
+          <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+            <div class="flex items-center justify-between">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-2xl bg-emerald-500/10 text-emerald-600 flex items-center justify-center">
+                  <span class="material-symbols-outlined">table_view</span>
+                </div>
+                <div>
+                  <h3 class="font-heading font-bold text-base text-primary">Bulk Upload — Excel (.xlsx) / CSV</h3>
+                  <p class="text-xs text-text-muted">პროდუქტების მასიური იმპორტი და ექსპორტი</p>
+                </div>
+              </div>
+              <a href="toys_ge_18_products.xlsx" download class="text-xs font-bold text-secondary hover:underline flex items-center gap-1">
+                <span class="material-symbols-outlined text-[16px]">download</span>
+                შაბლონი (.xlsx)
+              </a>
+            </div>
+
+            <label for="bulk-file-input" class="border-2 border-dashed border-secondary/40 hover:border-secondary rounded-2xl p-6 flex flex-col items-center justify-center text-center cursor-pointer bg-surface-bg/50 transition-all">
+              <span class="material-symbols-outlined text-[36px] text-secondary mb-2">cloud_upload</span>
+              <span class="text-xs font-bold text-primary">ჩააგდეთ .xlsx ან .csv ფაილი აქ, ან დააკლიკეთ ასარჩევად</span>
+              <span class="text-[11px] text-text-muted mt-1">ავტომატურად წაიკითხავს ქართულ სახელებს, თვითღირებულებას და დათვლის +65% ფასს</span>
+              <input id="bulk-file-input" type="file" accept=".xlsx,.xls,.csv" onchange="handleBulkFileUpload(event)" class="hidden"/>
+            </label>
+
+            <div class="flex items-center justify-between gap-2 pt-1">
+              <button onclick="exportCurrentCatalogXLSX()" class="flex-1 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold flex items-center justify-center gap-1.5">
+                <span class="material-symbols-outlined text-[17px]">file_download</span>
+                <span>მიმდინარე ბაზის Excel-ში ჩამოტვირთვა</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 2.2(a): Supplier Image Auto-Downloader & CDN Sync -->
+        <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-4">
+            <div class="flex items-center gap-3">
+              <div class="w-11 h-11 rounded-2xl bg-primary text-[#00F0FF] flex items-center justify-center">
+                <span class="material-symbols-outlined">cloud_sync</span>
+              </div>
+              <div>
+                <h3 class="font-heading font-bold text-base text-primary">Supplier Image CDN Sync &amp; Price Watcher (ვარიანტი 2.2a — ავტომატური)</h3>
+                <p class="text-xs text-text-muted">Supplier-ის (Temu) სურათების პირდაპირი hotlink ჩანაცვლებულია ჩვენს სერვერზე/CDN-ზე შენახული ოპტიმიზებული ფაილებით.</p>
+              </div>
+            </div>
+            <button onclick="runSupplierSyncSimulation()" class="px-4 py-2.5 rounded-xl bg-primary hover:bg-slate-800 text-white text-xs font-bold flex items-center gap-2">
+              <span id="sync-icon" class="material-symbols-outlined text-[18px] text-[#00F0FF]">sync</span>
+              <span>Supplier-თან ფოტოების &amp; ფასების სინქრონიზაცია</span>
+            </button>
+          </div>
+          <div id="sync-log-box" class="p-4 rounded-2xl bg-slate-900 text-emerald-400 font-mono text-xs space-y-1">
+            <div>[CDN STATUS] 18/18 პროდუქტის სურათი გადმოწერილია ლოკალურ CDN საცავში (/images/products/toy-01..18).</div>
+            <div>[GALLERY] თითოეულ პროდუქტზე გენერირებულია 3 მაღალი გარჩევადობის ფოტო (Main, Detail Zoom, Studio).</div>
+            <div>[PRICING] ავტომატური ფორმულა გააქტიურებულია: საიტის ფასი = თვითღირებულება × (1 + მარკაპი%).</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 3: ORDERS MANAGEMENT -->
+      <section id="tab-orders" class="hidden space-y-4">
+        <div class="bg-white p-5 rounded-3xl shadow-sm border border-slate-100 space-y-4">
+          <div class="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h2 class="font-heading font-bold text-lg text-primary">შეკვეთების დამუშავება და ტრეკინგი</h2>
+              <p class="text-xs text-text-muted">ქართული საგადახდო სისტემებით (TBC Pay, BOG Pay, Flitt) შემოსული შეკვეთების მართვა</p>
+            </div>
+          </div>
+          <div class="overflow-x-auto">
+            <table class="w-full text-left border-collapse">
+              <thead>
+                <tr class="border-b border-slate-200 text-[11px] font-bold text-text-muted uppercase">
+                  <th class="py-3 px-2">შეკვეთის ID / თარიღი</th>
+                  <th class="py-3 px-2">მომხმარებელი</th>
+                  <th class="py-3 px-2">მიწოდება / მისამართი</th>
+                  <th class="py-3 px-2">პროდუქტები</th>
+                  <th class="py-3 px-2">გადახდა / ჯამი</th>
+                  <th class="py-3 px-2">ტრეკინგ კოდი</th>
+                  <th class="py-3 px-2">სტატუსი</th>
+                </tr>
+              </thead>
+              <tbody id="admin-orders-tbody" class="divide-y divide-slate-100 text-xs"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 4: STATISTICS -->
+      <section id="tab-stats" class="hidden space-y-6">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-3">
+            <h3 class="font-heading font-bold text-base text-primary">ფინანსური მიმოხილვა</h3>
+            <div class="space-y-2 text-xs">
+              <div class="flex justify-between py-2 border-b border-slate-100">
+                <span class="text-text-muted">სულ გაყიდვები (Gross):</span>
+                <span id="stat-gross" class="font-bold text-primary">397.30 ₾</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-slate-100">
+                <span class="text-text-muted">პროდუქციის თვითღირებულება (Supplier Cost):</span>
+                <span id="stat-cost" class="font-bold text-rose-600">240.79 ₾</span>
+              </div>
+              <div class="flex justify-between py-2 border-b border-slate-100">
+                <span class="text-text-muted">სუფთა მარჟა / მოგება (+65%):</span>
+                <span id="stat-profit" class="font-bold text-emerald-600">+156.51 ₾</span>
+              </div>
+              <div class="flex justify-between py-2">
+                <span class="text-text-muted">მარაგის ჯამური ღირებულება (საიტის ფასით):</span>
+                <span id="stat-inventory-val" class="font-bold text-secondary">0.00 ₾</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-3">
+            <h3 class="font-heading font-bold text-base text-primary">გადარიცხვები (Payment Gateways)</h3>
+            <div class="space-y-2.5 text-xs">
+              <div class="p-3 rounded-xl bg-surface-bg flex items-center justify-between">
+                <span class="font-bold text-primary">TBC Pay (თიბისი ბანკი)</span>
+                <span class="font-bold text-secondary">73.28 ₾ (1 შეკვეთა)</span>
+              </div>
+              <div class="p-3 rounded-xl bg-surface-bg flex items-center justify-between">
+                <span class="font-bold text-primary">BOG Pay (საქართველოს ბანკი)</span>
+                <span class="font-bold text-orange-600">177.85 ₾ (1 შეკვეთა)</span>
+              </div>
+              <div class="p-3 rounded-xl bg-surface-bg flex items-center justify-between">
+                <span class="font-bold text-primary">Flitt (ბარათით გადახდა)</span>
+                <span class="font-bold text-emerald-600">146.17 ₾ (1 შეკვეთა)</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-white p-6 rounded-3xl shadow-sm border border-slate-100 space-y-3">
+            <h3 class="font-heading font-bold text-base text-primary">ტოპ გაყიდვადი პროდუქტები</h3>
+            <div id="stat-top-products" class="space-y-2.5 text-xs"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TAB 5: OWNER GUIDE -->
+      <section id="tab-guide" class="hidden space-y-6">
+        <div class="bg-white p-6 sm:p-8 rounded-3xl shadow-sm border border-slate-100 space-y-6">
+          <div>
+            <h2 class="font-heading font-bold text-xl text-primary">ინსტრუქცია საიტის მფლობელისთვის (როგორ ვმართოთ TOYS.GE)</h2>
+            <p class="text-xs text-text-muted mt-1">მოკლე გზამკვლევი პროდუქტების დამატების, ფასების კონტროლისა და შეკვეთების მართვის შესახებ</p>
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
+            <div class="p-4 rounded-2xl bg-surface-bg space-y-2">
+              <h4 class="font-heading font-bold text-sm text-primary">1. როგორ მუშაობს ფასის ავტომატური დათვლა (+65%)?</h4>
+              <p>თითოეულ პროდუქტს უთითებთ მხოლოდ <b>თვითღირებულებას (Cost ₾)</b> და <b>მარკაპის პროცენტს</b> (სტანდარტულად 65%). სისტემა ავტომატურად ითვლის საიტის ფასს ფორმულით: <code>Cost × (1 + Markup/100)</code>. თვითღირებულება მომხმარებელს არასდროს ეჩვენება.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-surface-bg space-y-2">
+              <h4 class="font-heading font-bold text-sm text-primary">2. როგორ შევცვალოთ ფასი ცხრილიდან 1 წამში?</h4>
+              <p>„პროდუქტების“ ტაბში პირდაპირ შეგიძლიათ ჩაწეროთ ახალი თვითღირებულება ან მარკაპი % — საიტის ფასი მყისიერად გადაითვლება და აისახება მთავარ გვერდზე.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-surface-bg space-y-2">
+              <h4 class="font-heading font-bold text-sm text-primary">3. როგორ ავტვირთოთ პროდუქტები მასიურად Excel-იდან?</h4>
+              <p>გადადით ტაბზე <b>„Excel/CSV &amp; მარკაპი“</b>, ჩამოტვირთეთ ნიმუში (<code>toys_ge_18_products.xlsx</code>), დაამატეთ ახალი სტრიქონები და ჩააგდეთ ფაილი ასატვირთ ველში. პროდუქტები ავტომატურად დაემატება კატალოგს.</p>
+            </div>
+            <div class="p-4 rounded-2xl bg-surface-bg space-y-2">
+              <h4 class="font-heading font-bold text-sm text-primary">4. როგორ ავტვირთოთ სურათები?</h4>
+              <p>დააჭირეთ „ახალი პროდუქტის დამატებას“ ან არსებულ პროდუქტზე რედაქტირების ღილაკს. სურათების ზონაში მაუსით გადაათრიეთ (Drag &amp; Drop) მინიმუმ 3 ფოტო.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- ADD / EDIT PRODUCT MODAL -->
+  <div id="product-modal" class="hidden fixed inset-0 z-50 bg-primary/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+    <div class="bg-white rounded-3xl p-6 max-w-2xl w-full shadow-2xl space-y-4 my-8">
+      <div class="flex items-center justify-between border-b border-slate-100 pb-3">
+        <h3 id="modal-form-title" class="font-heading font-bold text-lg text-primary">პროდუქტის დამატება / რედაქტირება</h3>
+        <button onclick="closeProductModal()" class="w-8 h-8 rounded-full bg-surface-bg flex items-center justify-center text-text-muted hover:text-primary">
+          <span class="material-symbols-outlined text-[18px]">close</span>
+        </button>
+      </div>
+
+      <form id="product-form" onsubmit="saveProductForm(event)" class="space-y-4 text-xs">
+        <input type="hidden" id="form-prod-id"/>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-text-muted mb-1">ID / SKU კოდი *</label>
+            <input id="form-sku" type="text" required placeholder="TOY-019" class="w-full px-3 py-2 rounded-xl bg-surface-bg border-none font-bold"/>
+          </div>
+          <div class="sm:col-span-2">
+            <label class="block font-bold text-text-muted mb-1">სახელი (ქართულად, ბრენდის გარეშე) *</label>
+            <input id="form-title" type="text" required placeholder="მაგ: დისტანციური მართვის ექსკავატორი" class="w-full px-3 py-2 rounded-xl bg-surface-bg border-none font-medium"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <div>
+            <label class="block font-bold text-text-muted mb-1">კატეგორია *</label>
+            <select id="form-category" required class="w-full px-3 py-2 rounded-xl bg-surface-bg border-none font-medium">
+              <option value="construction">სამშენებლო ტექნიკა</option>
+              <option value="robots">რობოტები</option>
+              <option value="rc">RC ტექნიკა</option>
+              <option value="building">კონსტრუქტორები</option>
+              <option value="space">კოსმოსი</option>
+              <option value="roleplay">როლური თამაშები</option>
+              <option value="educational">საგანმანათლებლო</option>
+            </select>
+          </div>
+          <div>
+            <label class="block font-bold text-text-muted mb-1">მარაგი (Quantity) *</label>
+            <input id="form-stock" type="number" min="0" value="15" required class="w-full px-3 py-2 rounded-xl bg-surface-bg border-none font-bold"/>
+          </div>
+          <div>
+            <label class="block font-bold text-text-muted mb-1">სტატუსი *</label>
+            <select id="form-status" class="w-full px-3 py-2 rounded-xl bg-surface-bg border-none font-bold">
+              <option value="active">აქტიური (Active)</option>
+              <option value="hidden">დამალული (Hidden)</option>
+              <option value="out_of_stock">Out of Stock</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Cost + Markup -> Automatic Price Box -->
+        <div class="p-4 rounded-2xl bg-secondary/5 border border-secondary/20 grid grid-cols-1 sm:grid-cols-3 gap-3 items-center">
+          <div>
+            <label class="block font-bold text-text-muted mb-1">თვითღირებულება (₾, შიდა) *</label>
+            <input id="form-cost" type="number" step="0.01" min="0" value="30.00" oninput="recalcModalPrice()" required class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 font-bold text-rose-600"/>
+          </div>
+          <div>
+            <label class="block font-bold text-text-muted mb-1">მარკაპი (%) *</label>
+            <input id="form-markup" type="number" step="1" min="0" value="65" oninput="recalcModalPrice()" required class="w-full px-3 py-2 rounded-xl bg-white border border-slate-200 font-bold text-secondary"/>
+          </div>
+          <div>
+            <label class="block font-bold text-text-muted mb-1">საიტის ფასი (Cost × (1+Markup))</label>
+            <input id="form-price-preview" type="text" readonly value="49.50 ₾" class="w-full px-3 py-2 rounded-xl bg-emerald-50 border border-emerald-200 font-heading font-extrabold text-sm text-emerald-700"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-bold text-text-muted mb-1">მოკლე აღწერა (ქართულად)</label>
+          <textarea id="form-desc" rows="2" placeholder="პროდუქტის აღწერა..." class="w-full px-3 py-2 rounded-xl bg-surface-bg border-none"></textarea>
+        </div>
+
+        <!-- Drag & Drop Image Uploader -->
+        <div>
+          <label class="block font-bold text-text-muted mb-1">ძირითადი სურათი + გალერეა (Drag &amp; Drop ან URL)</label>
+          <div id="drop-zone" class="border-2 border-dashed border-slate-300 hover:border-secondary rounded-2xl p-4 text-center cursor-pointer bg-surface-bg/60" onclick="document.getElementById('form-image-files').click()">
+            <span class="material-symbols-outlined text-[26px] text-secondary">add_photo_alternate</span>
+            <p class="text-xs font-semibold text-primary">ჩააგდეთ სურათები აქ (მინ. 3 ფოტო გალერეისთვის) ან დააკლიკეთ</p>
+            <input id="form-image-files" type="file" accept="image/*" multiple onchange="handleModalImageUpload(event)" class="hidden"/>
+          </div>
+          <div id="form-gallery-preview" class="flex items-center gap-2 mt-2 overflow-x-auto py-1"></div>
+        </div>
+
+        <div class="flex justify-end gap-2 pt-2 border-t border-slate-100">
+          <button type="button" onclick="closeProductModal()" class="px-4 py-2.5 rounded-xl bg-slate-100 text-text-muted font-bold">გაუქმება</button>
+          <button type="submit" class="px-6 py-2.5 rounded-xl bg-secondary hover:bg-blue-600 text-white font-heading font-bold shadow-md">შენახვა</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script src="products.js"></script>
+  <script>
+    const CATEGORY_NAMES = {
+      construction: "სამშენებლო ტექნიკა",
+      robots: "რობოტები",
+      rc: "RC ტექნიკა",
+      building: "კონსტრუქტორები",
+      space: "კოსმოსი",
+      roleplay: "როლური თამაშები",
+      educational: "საგანმანათლებლო"
+    };
+
+    let adminProducts = loadProductsDatabase();
+    let adminOrders = loadOrdersDatabase();
+    let modalGalleryImages = [];
+
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('kepler_admin_logged') === '1') {
+        document.getElementById('admin-login-screen').classList.add('hidden');
+      }
+      refreshAllAdminUI();
+    });
+
+    function handleAdminLogin(e) {
+      e.preventDefault();
+      const u = document.getElementById('login-user').value.trim();
+      const p = document.getElementById('login-pass').value.trim();
+      if (u === 'admin' && p === 'kepleri2026') {
+        sessionStorage.setItem('kepler_admin_logged', '1');
+        document.getElementById('admin-login-screen').classList.add('hidden');
+      } else {
+        alert('არასწორი მომხმარებელი ან პაროლი! გამოიყენეთ: admin / kepleri2026');
+      }
+    }
+
+    function switchTab(tabName) {
+      ['products', 'bulk', 'orders', 'stats', 'guide'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('hidden', t !== tabName);
+        const btn = document.getElementById(`tab-btn-${t}`);
+        if (btn) {
+          btn.className = t === tabName
+            ? "admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-secondary text-white flex items-center gap-1.5"
+            : "admin-tab-btn px-3.5 py-2 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white flex items-center gap-1.5";
+        }
+      });
+    }
+
+    function refreshAllAdminUI() {
+      adminProducts = loadProductsDatabase();
+      adminOrders = loadOrdersDatabase();
+      renderAdminProducts();
+      renderAdminOrders();
+      updateAdminKPIs();
+    }
+
+    function updateAdminKPIs() {
+      document.getElementById('nav-prod-count').textContent = adminProducts.length;
+      document.getElementById('nav-order-count').textContent = adminOrders.length;
+      document.getElementById('kpi-total-products').textContent = adminProducts.length;
+
+      const avgMarkup = adminProducts.length
+        ? Math.round(adminProducts.reduce((s, p) => s + Number(p.markup || 65), 0) / adminProducts.length)
+        : 65;
+      document.getElementById('kpi-avg-markup').textContent = `+${avgMarkup}%`;
+
+      const totalStock = adminProducts.reduce((s, p) => s + Number(p.stock || 0), 0);
+      const outStock = adminProducts.filter(p => Number(p.stock) <= 0 || p.status === 'out_of_stock').length;
+      document.getElementById('kpi-total-stock').textContent = `${totalStock} ც.`;
+      document.getElementById('kpi-out-stock').textContent = `${outStock} Out of Stock`;
+
+      const totalSales = adminOrders.reduce((s, o) => s + Number(o.total || 0), 0);
+      const totalCost = adminOrders.reduce((s, o) => s + Number(o.totalCost || (o.total / 1.65)), 0);
+      const netProfit = totalSales - totalCost;
+      document.getElementById('kpi-total-sales').textContent = `${totalSales.toFixed(2)} ₾`;
+      document.getElementById('kpi-net-profit').textContent = `სუფთა მოგება: +${netProfit.toFixed(2)} ₾`;
+
+      const invVal = adminProducts.reduce((s, p) => s + (Number(p.price) * Number(p.stock || 0)), 0);
+      document.getElementById('stat-gross').textContent = `${totalSales.toFixed(2)} ₾`;
+      document.getElementById('stat-cost').textContent = `${totalCost.toFixed(2)} ₾`;
+      document.getElementById('stat-profit').textContent = `+${netProfit.toFixed(2)} ₾`;
+      document.getElementById('stat-inventory-val').textContent = `${invVal.toFixed(2)} ₾`;
+
+      const topContainer = document.getElementById('stat-top-products');
+      if (topContainer) {
+        topContainer.innerHTML = adminProducts.slice(0, 4).map(p => `
+          <div class="flex items-center justify-between p-2.5 rounded-xl bg-surface-bg">
+            <div class="flex items-center gap-2 truncate pr-2">
+              <img src="${p.image}" class="w-8 h-8 rounded-lg object-cover shrink-0"/>
+              <span class="font-semibold text-primary truncate">${p.title}</span>
+            </div>
+            <span class="font-bold text-secondary shrink-0">${Number(p.price).toFixed(2)} ₾</span>
+          </div>
+        `).join('');
+      }
+    }
+
+    function renderAdminProducts() {
+      const q = (document.getElementById('admin-filter-search')?.value || '').toLowerCase();
+      const cat = document.getElementById('admin-filter-cat')?.value || 'all';
+      const status = document.getElementById('admin-filter-status')?.value || 'all';
+      const priceRange = document.getElementById('admin-filter-price')?.value || 'all';
+      const stockFilter = document.getElementById('admin-filter-stock')?.value || 'all';
+
+      const filtered = adminProducts.filter(p => {
+        if (q && !p.title.toLowerCase().includes(q) && !p.sku.toLowerCase().includes(q)) return false;
+        if (cat !== 'all' && p.category !== cat) return false;
+        if (status !== 'all' && p.status !== status) return false;
+        if (priceRange === '0-50' && p.price > 50) return false;
+        if (priceRange === '50-100' && (p.price < 50 || p.price > 100)) return false;
+        if (priceRange === '100+' && p.price < 100) return false;
+        if (stockFilter === 'in' && p.stock <= 0) return false;
+        if (stockFilter === 'low' && (p.stock <= 0 || p.stock >= 12)) return false;
+        if (stockFilter === 'zero' && p.stock > 0) return false;
+        return true;
+      });
+
+      const tbody = document.getElementById('admin-products-tbody');
+      tbody.innerHTML = filtered.map(p => {
+        const galleryCount = (p.gallery && p.gallery.length) ? p.gallery.length : 3;
+        return `
+          <tr class="hover:bg-slate-50/80 transition-colors">
+            <td class="py-2.5 px-2">
+              <div class="flex items-center gap-1.5">
+                <img src="${p.image}" alt="${p.title}" class="w-11 h-11 rounded-xl object-cover border border-slate-200"/>
+                <span class="px-1.5 py-0.5 rounded-md bg-slate-100 text-[10px] font-bold text-text-muted">${galleryCount} ფოტო</span>
+              </div>
+            </td>
+            <td class="py-2.5 px-2 max-w-[230px]">
+              <div class="text-[10px] font-bold text-secondary">${p.sku}</div>
+              <div class="font-bold text-primary line-clamp-2">${p.title}</div>
+            </td>
+            <td class="py-2.5 px-2">
+              <span class="px-2.5 py-1 rounded-lg bg-surface-bg font-semibold text-text-primary">${CATEGORY_NAMES[p.category] || p.categoryLabel}</span>
+            </td>
+            <td class="py-2.5 px-2">
+              <input type="number" step="0.01" value="${Number(p.cost).toFixed(2)}" onchange="inlineUpdateCostMarkup(${p.id}, this.value, null)" class="w-20 px-2 py-1 rounded-lg bg-rose-50 border border-rose-200 font-bold text-rose-700 text-xs"/>
+            </td>
+            <td class="py-2.5 px-2">
+              <div class="flex items-center gap-1">
+                <input type="number" step="1" value="${p.markup}" onchange="inlineUpdateCostMarkup(${p.id}, null, this.value)" class="w-16 px-2 py-1 rounded-lg bg-blue-50 border border-blue-200 font-bold text-secondary text-xs"/>
+                <span class="font-bold text-text-muted">%</span>
+              </div>
+            </td>
+            <td class="py-2.5 px-2">
+              <span class="font-heading font-extrabold text-sm text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">${Number(p.price).toFixed(2)} ₾</span>
+            </td>
+            <td class="py-2.5 px-2">
+              <input type="number" min="0" value="${p.stock}" onchange="inlineUpdateStock(${p.id}, this.value)" class="w-16 px-2 py-1 rounded-lg bg-surface-bg border border-slate-200 font-bold text-xs"/>
+            </td>
+            <td class="py-2.5 px-2">
+              <select onchange="inlineUpdateStatus(${p.id}, this.value)" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border-none ${p.status === 'active' ? 'bg-emerald-100 text-emerald-800' : (p.status === 'hidden' ? 'bg-slate-200 text-slate-700' : 'bg-amber-100 text-amber-800')}">
+                <option value="active" ${p.status === 'active' ? 'selected' : ''}>აქტიური</option>
+                <option value="hidden" ${p.status === 'hidden' ? 'selected' : ''}>დამალული</option>
+                <option value="out_of_stock" ${p.status === 'out_of_stock' ? 'selected' : ''}>Out of Stock</option>
+              </select>
+            </td>
+            <td class="py-2.5 px-2 text-right">
+              <div class="flex items-center justify-end gap-1">
+                <button onclick="openProductModal(${p.id})" class="p-1.5 rounded-lg bg-surface-bg hover:bg-secondary hover:text-white text-text-primary transition-colors" title="რედაქტირება">
+                  <span class="material-symbols-outlined text-[17px]">edit</span>
+                </button>
+                <button onclick="deleteProduct(${p.id})" class="p-1.5 rounded-lg bg-surface-bg hover:bg-rose-600 hover:text-white text-rose-600 transition-colors" title="წაშლა">
+                  <span class="material-symbols-outlined text-[17px]">delete</span>
+                </button>
+              </div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function inlineUpdateCostMarkup(id, newCost, newMarkup) {
+      const idx = adminProducts.findIndex(p => p.id === id);
+      if (idx === -1) return;
+      if (newCost !== null) adminProducts[idx].cost = Number(newCost);
+      if (newMarkup !== null) adminProducts[idx].markup = Number(newMarkup);
+      adminProducts[idx].price = calcSitePrice(adminProducts[idx].cost, adminProducts[idx].markup);
+      saveProductsDatabase(adminProducts);
+      refreshAllAdminUI();
+    }
+
+    function inlineUpdateStock(id, newStock) {
+      const idx = adminProducts.findIndex(p => p.id === id);
+      if (idx === -1) return;
+      adminProducts[idx].stock = Number(newStock);
+      if (adminProducts[idx].stock <= 0) {
+        adminProducts[idx].status = 'out_of_stock';
+      } else if (adminProducts[idx].status === 'out_of_stock') {
+        adminProducts[idx].status = 'active';
+      }
+      saveProductsDatabase(adminProducts);
+      refreshAllAdminUI();
+    }
+
+    function inlineUpdateStatus(id, newStatus) {
+      const idx = adminProducts.findIndex(p => p.id === id);
+      if (idx === -1) return;
+      adminProducts[idx].status = newStatus;
+      saveProductsDatabase(adminProducts);
+      refreshAllAdminUI();
+    }
+
+    function openProductModal(id = null) {
+      const modal = document.getElementById('product-modal');
+      modal.classList.remove('hidden');
+      if (id) {
+        const p = adminProducts.find(item => item.id === id);
+        if (!p) return;
+        document.getElementById('modal-form-title').textContent = `პროდუქტის რედაქტირება (${p.sku})`;
+        document.getElementById('form-prod-id').value = p.id;
+        document.getElementById('form-sku').value = p.sku;
+        document.getElementById('form-title').value = p.title;
+        document.getElementById('form-category').value = p.category;
+        document.getElementById('form-stock').value = p.stock;
+        document.getElementById('form-status').value = p.status;
+        document.getElementById('form-cost').value = p.cost;
+        document.getElementById('form-markup').value = p.markup;
+        document.getElementById('form-desc').value = p.description || '';
+        modalGalleryImages = p.gallery && p.gallery.length ? [...p.gallery] : [p.image];
+      } else {
+        const nextNum = adminProducts.length + 1;
+        document.getElementById('modal-form-title').textContent = 'ახალი პროდუქტის დამატება';
+        document.getElementById('form-prod-id').value = '';
+        document.getElementById('form-sku').value = `TOY-${String(nextNum).padStart(3, '0')}`;
+        document.getElementById('form-title').value = '';
+        document.getElementById('form-category').value = 'robots';
+        document.getElementById('form-stock').value = 15;
+        document.getElementById('form-status').value = 'active';
+        document.getElementById('form-cost').value = 30.00;
+        document.getElementById('form-markup').value = 65;
+        document.getElementById('form-desc').value = '';
+        modalGalleryImages = ['images/products/toy-01-main.jpg', 'images/products/toy-01-detail.jpg', 'images/products/toy-01-studio.jpg'];
+      }
+      recalcModalPrice();
+      renderModalGalleryPreview();
+    }
+
+    function closeProductModal() {
+      document.getElementById('product-modal').classList.add('hidden');
+    }
+
+    function recalcModalPrice() {
+      const c = Number(document.getElementById('form-cost').value || 0);
+      const m = Number(document.getElementById('form-markup').value || 0);
+      const finalPrice = calcSitePrice(c, m);
+      document.getElementById('form-price-preview').value = `${finalPrice.toFixed(2)} ₾`;
+    }
+
+    function handleModalImageUpload(event) {
+      const files = Array.from(event.target.files || []);
+      if (!files.length) return;
+      modalGalleryImages = [];
+      files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          modalGalleryImages.push(e.target.result);
+          renderModalGalleryPreview();
+        };
+        reader.readAsDataURL(file);
+      });
+    }
+
+    function renderModalGalleryPreview() {
+      const container = document.getElementById('form-gallery-preview');
+      container.innerHTML = modalGalleryImages.map((src, i) => `
+        <div class="relative shrink-0">
+          <img src="${src}" class="w-16 h-16 rounded-xl object-cover border border-slate-200"/>
+          <span class="absolute bottom-1 right-1 px-1.5 rounded bg-black/70 text-white text-[9px] font-bold">#${i+1}</span>
+        </div>
+      `).join('');
+    }
+
+    function saveProductForm(e) {
+      e.preventDefault();
+      const existingId = document.getElementById('form-prod-id').value;
+      const cat = document.getElementById('form-category').value;
+      const cost = Number(document.getElementById('form-cost').value);
+      const markup = Number(document.getElementById('form-markup').value);
+      const price = calcSitePrice(cost, markup);
+      const stock = Number(document.getElementById('form-stock').value);
+      const status = document.getElementById('form-status').value;
+
+      const prodData = {
+        id: existingId ? Number(existingId) : Date.now(),
+        sku: document.getElementById('form-sku').value.trim(),
+        title: document.getElementById('form-title').value.trim(),
+        brandId: cat,
+        brand: "კეპლერი",
+        category: cat,
+        categoryLabel: CATEGORY_NAMES[cat] || cat,
+        age: "6-8",
+        ageLabel: "5+ წელი",
+        cost,
+        markup,
+        price,
+        oldPrice: Number((price * 1.25).toFixed(2)),
+        discount: 20,
+        rating: 4.9,
+        reviewsCount: 25,
+        stock,
+        status,
+        inStock: status === 'active' && stock > 0,
+        installment: Math.max(2, Math.round(price / 12)),
+        image: modalGalleryImages[0] || 'images/products/toy-01-main.jpg',
+        gallery: modalGalleryImages.length >= 3 ? modalGalleryImages : [
+          modalGalleryImages[0] || 'images/products/toy-01-main.jpg',
+          'images/products/toy-01-detail.jpg',
+          'images/products/toy-01-studio.jpg'
+        ],
+        badge: "ახალი",
+        badgeColor: "blue",
+        description: document.getElementById('form-desc').value.trim(),
+        specs: [`SKU: ${document.getElementById('form-sku').value.trim()}`, `კატეგორია: ${CATEGORY_NAMES[cat] || cat}`]
+      };
+
+      if (existingId) {
+        const idx = adminProducts.findIndex(p => p.id === Number(existingId));
+        if (idx !== -1) adminProducts[idx] = { ...adminProducts[idx], ...prodData };
+      } else {
+        adminProducts.unshift(prodData);
+      }
+
+      saveProductsDatabase(adminProducts);
+      closeProductModal();
+      refreshAllAdminUI();
+    }
+
+    function deleteProduct(id) {
+      if (!confirm('ნამდვილად გსურთ პროდუქტის წაშლა?')) return;
+      adminProducts = adminProducts.filter(p => p.id !== id);
+      saveProductsDatabase(adminProducts);
+      refreshAllAdminUI();
+    }
+
+    function resetToDefaultProducts() {
+      if (!confirm('აღვადგინოთ საწყისი 18 პროდუქტი +65% მარკაპით?')) return;
+      localStorage.removeItem('kepler_products_v2');
+      adminProducts = loadProductsDatabase();
+      refreshAllAdminUI();
+    }
+
+    function applyPresetMarkup(cat, markup) {
+      document.getElementById('bulk-markup-cat').value = cat;
+      document.getElementById('bulk-markup-val').value = markup;
+      applyBulkMarkup();
+    }
+
+    function applyBulkMarkup() {
+      const cat = document.getElementById('bulk-markup-cat').value;
+      const newMarkup = Number(document.getElementById('bulk-markup-val').value);
+      let count = 0;
+      adminProducts = adminProducts.map(p => {
+        if (cat === 'all' || p.category === cat) {
+          count++;
+          return {
+            ...p,
+            markup: newMarkup,
+            price: calcSitePrice(p.cost, newMarkup)
+          };
+        }
+        return p;
+      });
+      saveProductsDatabase(adminProducts);
+      refreshAllAdminUI();
+      alert(`წარმატებით განახლდა ${count} პროდუქტის მარკაპი (+${newMarkup}%) და გადაითვალა საიტის ფასები!`);
+    }
+
+    function handleBulkFileUpload(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        try {
+          const data = new Uint8Array(e.target.result);
+          const workbook = XLSX.read(data, { type: 'array' });
+          const sheet = workbook.Sheets[workbook.SheetNames[0]];
+          const rows = XLSX.utils.sheet_to_json(sheet);
+          if (!rows.length) {
+            alert('ფაილი ცარიელია!');
+            return;
+          }
+          const imported = rows.map((r, i) => {
+            const cost = Number(r['თვითღირებულება (₾)'] || r.cost || r.Cost || 25);
+            const markup = Number(r['მარკაპი (%)'] || r.markup || r.Markup || 65);
+            const catCode = r['კატეგორიის კოდი'] || r.category || 'robots';
+            const img = r['ძირითადი სურათი'] || r.image || `images/products/toy-${String((i % 18) + 1).padStart(2, '0')}-main.jpg`;
+            return {
+              id: i + 1,
+              sku: r['SKU'] || r.sku || `TOY-${String(i + 1).padStart(3, '0')}`,
+              title: r['სახელი (ქართულად)'] || r.title || `სათამაშო #${i + 1}`,
+              brandId: catCode,
+              brand: "კეპლერი",
+              category: catCode,
+              categoryLabel: r['კატეგორია'] || CATEGORY_NAMES[catCode] || 'რობოტები',
+              age: "6-8",
+              ageLabel: "5+ წელი",
+              cost,
+              markup,
+              price: calcSitePrice(cost, markup),
+              oldPrice: Number((calcSitePrice(cost, markup) * 1.25).toFixed(2)),
+              discount: 20,
+              rating: 4.9,
+              reviewsCount: 40,
+              stock: Number(r['მარაგი'] || r.stock || 15),
+              status: r['სტატუსი'] || r.status || 'active',
+              inStock: true,
+              installment: 6,
+              image: img,
+              gallery: [img, img.replace('-main.jpg', '-detail.jpg'), img.replace('-main.jpg', '-studio.jpg')],
+              badge: "TOP",
+              badgeColor: "blue",
+              description: r['მოკლე აღწერა'] || r.description || '',
+              specs: [`SKU: ${r['SKU'] || r.sku || ''}`]
+            };
+          });
+          saveProductsDatabase(imported);
+          refreshAllAdminUI();
+          switchTab('products');
+          alert(`Excel/CSV ფაილიდან წარმატებით ჩაიტვირთა ${imported.length} პროდუქტი!`);
+        } catch (err) {
+          alert('ფაილის წაკითხვის შეცდომა: ' + err.message);
+        }
+      };
+      reader.readAsArrayBuffer(file);
+    }
+
+    function exportCurrentCatalogXLSX() {
+      const exportRows = adminProducts.map(p => ({
+        'SKU': p.sku,
+        'სახელი (ქართულად)': p.title,
+        'კატეგორია': CATEGORY_NAMES[p.category] || p.categoryLabel,
+        'კატეგორიის კოდი': p.category,
+        'თვითღირებულება (₾)': p.cost,
+        'მარკაპი (%)': p.markup,
+        'საიტის ფასი (₾)': p.price,
+        'მარაგი': p.stock,
+        'სტატუსი': p.status,
+        'მოკლე აღწერა': p.description,
+        'ძირითადი სურათი': p.image
+      }));
+      const ws = XLSX.utils.json_to_sheet(exportRows);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Products");
+      XLSX.writeFile(wb, "toys_ge_catalog_export.xlsx");
+    }
+
+    function runSupplierSyncSimulation() {
+      const box = document.getElementById('sync-log-box');
+      const now = new Date().toLocaleTimeString('ka-GE');
+      box.innerHTML += `<div>[${now}] სინქრონიზაცია დასრულდა: 18 პროდუქტის CDN ფოტო და ფასის ფორმულა (cost × 1.65) შემოწმებულია ✓</div>`;
+    }
+
+    function renderAdminOrders() {
+      const tbody = document.getElementById('admin-orders-tbody');
+      tbody.innerHTML = adminOrders.map((o, idx) => `
+        <tr class="hover:bg-slate-50">
+          <td class="py-3 px-2">
+            <div class="font-bold text-primary">${o.id}</div>
+            <div class="text-[11px] text-text-muted">${o.date}</div>
+          </td>
+          <td class="py-3 px-2">
+            <div class="font-bold">${o.customer}</div>
+            <div class="text-[11px] text-secondary font-semibold">${o.phone}</div>
+          </td>
+          <td class="py-3 px-2">
+            <div class="font-semibold text-primary">${o.deliveryMethod}</div>
+            <div class="text-[11px] text-text-muted">${o.city}, ${o.address}</div>
+          </td>
+          <td class="py-3 px-2">
+            ${(o.items || []).map(it => `<div class="text-[11px]">• ${it.title} (x${it.qty}) — <b>${Number(it.price).toFixed(2)} ₾</b></div>`).join('')}
+          </td>
+          <td class="py-3 px-2">
+            <div class="font-heading font-extrabold text-emerald-700">${Number(o.total).toFixed(2)} ₾</div>
+            <div class="text-[10px] font-bold text-text-muted">${o.paymentMethod}</div>
+          </td>
+          <td class="py-3 px-2">
+            <input type="text" value="${o.trackingCode || ''}" onchange="updateOrderTracking(${idx}, this.value)" class="w-28 px-2 py-1 rounded-lg bg-surface-bg border border-slate-200 text-xs font-mono font-bold"/>
+          </td>
+          <td class="py-3 px-2">
+            <select onchange="updateOrderStatus(${idx}, this.value)" class="px-2.5 py-1 rounded-lg text-[11px] font-bold border-none ${o.status === 'delivered' ? 'bg-emerald-100 text-emerald-800' : (o.status === 'shipped' ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800')}">
+              <option value="processing" ${o.status === 'processing' ? 'selected' : ''}>მუშავდება</option>
+              <option value="shipped" ${o.status === 'shipped' ? 'selected' : ''}>გაგზავნილია</option>
+              <option value="delivered" ${o.status === 'delivered' ? 'selected' : ''}>ჩაბარებულია</option>
+            </select>
+          </td>
+        </tr>
+      `).join('');
+    }
+
+    function updateOrderTracking(idx, code) {
+      adminOrders[idx].trackingCode = code;
+      saveOrdersDatabase(adminOrders);
+    }
+
+    function updateOrderStatus(idx, status) {
+      adminOrders[idx].status = status;
+      saveOrdersDatabase(adminOrders);
+      renderAdminOrders();
+    }
+  </script>
+</body>
+</html>

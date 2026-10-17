@@ -185,7 +185,14 @@ function renderProducts() {
     }
   }
 
+  if (typeof loadProductsDatabase === 'function') {
+    PRODUCTS = loadProductsDatabase();
+  }
+
   let filtered = PRODUCTS.filter(prod => {
+    // Hide hidden products on storefront
+    if (prod.status === 'hidden') return false;
+
     // Filter Brand
     if (STATE.selectedBrand !== 'all' && prod.brandId !== STATE.selectedBrand) {
       return false;
@@ -201,7 +208,7 @@ function renderProducts() {
     // Filter Search
     if (STATE.searchQuery.trim() !== '') {
       const q = STATE.searchQuery.toLowerCase();
-      const matchTitle = prod.title.toLowerCase().includes(q);
+      const matchTitle = prod.title.toLowerCase().includes(q) || (prod.title_en && prod.title_en.toLowerCase().includes(q)) || (prod.title_ru && prod.title_ru.toLowerCase().includes(q));
       const matchBrand = prod.brand.toLowerCase().includes(q);
       const matchCategory = prod.categoryLabel.toLowerCase().includes(q);
       const matchDesc = prod.description.toLowerCase().includes(q);
@@ -241,9 +248,18 @@ function renderProducts() {
   container.innerHTML = filtered.map(prod => createProductCardHTML(prod)).join('');
 }
 
+function getLocalizedTitle(prod) {
+  const lang = STATE.lang || 'ka';
+  if (lang === 'en' && prod.title_en) return prod.title_en;
+  if (lang === 'ru' && prod.title_ru) return prod.title_ru;
+  return prod.title;
+}
+
 // Generate Product Card HTML
 function createProductCardHTML(prod) {
   const isWishlisted = STATE.wishlist.includes(prod.id);
+  const isOut = prod.status === 'out_of_stock' || Number(prod.stock) <= 0;
+  const displayTitle = getLocalizedTitle(prod);
   const badgeClass = prod.badgeColor === 'sale' 
     ? 'bg-accent-sale text-white' 
     : prod.badgeColor === 'blue' 
@@ -275,15 +291,15 @@ function createProductCardHTML(prod) {
         </div>
 
         <!-- Product Image Viewport -->
-        <div class="w-full h-44 rounded-xl bg-surface-bg p-3 tactile-inset flex items-center justify-center mb-3 overflow-hidden relative">
+        <div class="w-full h-44 rounded-xl bg-surface-bg p-2 tactile-inset flex items-center justify-center mb-3 overflow-hidden relative">
           <img 
             src="${prod.image}" 
-            alt="${prod.title}" 
-            class="w-full h-full object-contain group-hover:scale-105 transition-transform duration-300"
+            alt="${displayTitle}" 
+            class="w-full h-full object-cover rounded-lg group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
-          <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-white/90 backdrop-blur-sm text-[10px] font-bold text-text-primary uppercase tracking-wider">
-            ${prod.brand}
+          <span class="absolute bottom-2 left-2 px-2 py-0.5 rounded-md bg-white/90 backdrop-blur-sm text-[10px] font-bold text-text-primary">
+            ${(prod.gallery && prod.gallery.length) ? prod.gallery.length : 3} ფოტო
           </span>
         </div>
 
@@ -293,8 +309,8 @@ function createProductCardHTML(prod) {
             <span>${prod.categoryLabel}</span>
             <span class="text-text-muted font-normal">• ${prod.ageLabel}</span>
           </div>
-          <h3 class="text-title-card font-heading font-semibold text-text-primary line-clamp-2 group-hover:text-secondary transition-colors" title="${prod.title}">
-            ${prod.title}
+          <h3 class="text-title-card font-heading font-semibold text-text-primary line-clamp-2 group-hover:text-secondary transition-colors" title="${displayTitle}">
+            ${displayTitle}
           </h3>
         </div>
 
@@ -305,10 +321,17 @@ function createProductCardHTML(prod) {
             <span class="text-text-primary font-bold">${prod.rating.toFixed(1)}</span>
             <span class="text-text-muted text-[11px]">(${prod.reviewsCount})</span>
           </div>
-          <span class="text-[11px] font-medium text-emerald-600 flex items-center gap-1">
-            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-            მარაგშია ონლაინ
-          </span>
+          ${isOut ? `
+            <span class="text-[11px] font-bold text-rose-600 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>
+              ამოწურულია
+            </span>
+          ` : `
+            <span class="text-[11px] font-medium text-emerald-600 flex items-center gap-1">
+              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+              მარაგშია (${prod.stock ?? 15} ც.)
+            </span>
+          `}
         </div>
       </div>
 
@@ -325,10 +348,10 @@ function createProductCardHTML(prod) {
         </div>
         <button 
           type="button"
-          onclick="addToCart(${prod.id}, 1, event)"
-          class="w-full py-2.5 rounded-xl bg-text-primary text-white font-heading text-sm font-semibold hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2 tap-effect">
-          <span class="material-symbols-outlined text-[18px] text-tertiary-fixed">add_shopping_cart</span>
-          <span>კალათაში</span>
+          ${isOut ? 'disabled' : `onclick="addToCart(${prod.id}, 1, event)"`}
+          class="w-full py-2.5 rounded-xl ${isOut ? 'bg-slate-300 text-slate-600 cursor-not-allowed' : 'bg-text-primary text-white hover:shadow-[0_0_12px_rgba(58,134,255,0.4)] active:scale-95'} font-heading text-sm font-semibold transition-all flex items-center justify-center gap-2 tap-effect">
+          <span class="material-symbols-outlined text-[18px] ${isOut ? '' : 'text-tertiary-fixed'}">${isOut ? 'block' : 'add_shopping_cart'}</span>
+          <span>${isOut ? 'Out of Stock' : 'კალათაში'}</span>
         </button>
       </div>
     </div>
@@ -631,7 +654,7 @@ function resetFilters() {
   renderProducts();
 }
 
-// Quick View Modal
+// Quick View / Product Page Modal with 3+ Photo Gallery
 function openQuickView(productId, event) {
   if (event) event.stopPropagation();
 
@@ -642,19 +665,34 @@ function openQuickView(productId, event) {
   const modalContent = document.getElementById('quickview-content');
   if (!modal || !modalContent) return;
 
+  const gallery = (prod.gallery && prod.gallery.length >= 3)
+    ? prod.gallery
+    : [prod.image, prod.image, prod.image];
+  const displayTitle = getLocalizedTitle(prod);
+  const isOut = prod.status === 'out_of_stock' || Number(prod.stock) <= 0;
+
   modalContent.innerHTML = `
-    <div class="relative bg-surface-card rounded-3xl p-6 md:p-8 max-w-3xl w-full border border-white tactile-floating overflow-hidden">
-      <button onclick="closeQuickView()" class="absolute top-4 right-4 w-10 h-10 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-text-primary hover:text-accent-sale tap-effect">
+    <div class="relative bg-surface-card rounded-3xl p-5 md:p-8 max-w-3xl w-full border border-white tactile-floating overflow-hidden">
+      <button onclick="closeQuickView()" class="absolute top-4 right-4 z-10 w-10 h-10 rounded-full bg-surface-bg tactile-inset flex items-center justify-center text-text-primary hover:text-accent-sale tap-effect">
         <span class="material-symbols-outlined text-[20px]">close</span>
       </button>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-        <!-- Image with Glow -->
-        <div class="rounded-2xl bg-surface-bg p-6 tactile-inset flex items-center justify-center relative min-h-[280px]">
-          <span class="absolute top-3 left-3 px-3 py-1 rounded-full bg-secondary text-white text-xs font-bold font-heading">
-            ${prod.brand}
-          </span>
-          <img src="${prod.image}" alt="${prod.title}" class="max-h-64 object-contain" />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <!-- Image Gallery (Main + 3 Thumbnails) -->
+        <div class="space-y-3">
+          <div class="rounded-2xl bg-surface-bg p-3 tactile-inset flex items-center justify-center relative h-[280px] overflow-hidden">
+            <span class="absolute top-3 left-3 z-10 px-3 py-1 rounded-full bg-secondary text-white text-xs font-bold font-heading">
+              ${prod.sku}
+            </span>
+            <img id="qv-main-image" src="${gallery[0]}" alt="${displayTitle}" class="w-full h-full object-cover rounded-xl transition-all duration-200" />
+          </div>
+          <div class="grid grid-cols-3 gap-2.5">
+            ${gallery.map((imgUrl, idx) => `
+              <button type="button" onclick="switchQuickViewImage('${imgUrl}', this)" class="qv-thumb rounded-xl overflow-hidden border-2 ${idx === 0 ? 'border-secondary' : 'border-transparent'} h-20 bg-surface-bg p-1 transition-all">
+                <img src="${imgUrl}" class="w-full h-full object-cover rounded-lg"/>
+              </button>
+            `).join('')}
+          </div>
         </div>
 
         <!-- Details -->
@@ -667,7 +705,7 @@ function openQuickView(productId, event) {
               <span>•</span>
               <span class="text-text-muted font-mono font-normal">${prod.sku}</span>
             </div>
-            <h2 class="text-2xl font-bold font-heading text-text-primary">${prod.title}</h2>
+            <h2 class="text-xl md:text-2xl font-bold font-heading text-text-primary">${displayTitle}</h2>
           </div>
 
           <div class="flex items-center gap-3">
@@ -676,16 +714,22 @@ function openQuickView(productId, event) {
               <span class="font-bold text-text-primary">${prod.rating.toFixed(1)}</span>
               <span class="text-text-muted text-xs">(${prod.reviewsCount} შეფასება)</span>
             </div>
-            <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1 bg-emerald-50 px-2.5 py-0.5 rounded-full">
-              <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> მარაგშია ონლაინ
-            </span>
+            ${isOut ? `
+              <span class="text-xs text-rose-600 font-bold flex items-center gap-1 bg-rose-50 px-2.5 py-0.5 rounded-full">
+                Out of Stock
+              </span>
+            ` : `
+              <span class="text-xs text-emerald-600 font-semibold flex items-center gap-1 bg-emerald-50 px-2.5 py-0.5 rounded-full">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> მარაგშია: ${prod.stock ?? 15} ც.
+              </span>
+            `}
           </div>
 
           <p class="text-text-muted text-sm leading-relaxed">${prod.description}</p>
 
           <!-- Specs List -->
           <div class="bg-surface-bg p-3 rounded-xl tactile-inset-sm space-y-1">
-            ${prod.specs.map(s => `<div class="text-xs text-text-primary flex items-center gap-1.5"><span class="text-secondary font-bold">•</span> ${s}</div>`).join('')}
+            ${(prod.specs || []).map(s => `<div class="text-xs text-text-primary flex items-center gap-1.5"><span class="text-secondary font-bold">•</span> ${s}</div>`).join('')}
           </div>
 
           <!-- Price & Actions -->
@@ -705,9 +749,9 @@ function openQuickView(productId, event) {
                 <button onclick="incrementModalQty()" class="w-8 h-8 rounded-lg flex items-center justify-center font-bold text-text-primary hover:bg-white tap-effect">+</button>
               </div>
 
-              <button onclick="addModalToCart(${prod.id})" class="flex-1 py-3 px-6 rounded-xl bg-text-primary text-white font-heading font-semibold hover:shadow-[0_0_16px_rgba(58,134,255,0.4)] active:scale-95 transition-all flex items-center justify-center gap-2 tap-effect">
+              <button ${isOut ? 'disabled' : `onclick="addModalToCart(${prod.id})"`} class="flex-1 py-3 px-6 rounded-xl ${isOut ? 'bg-slate-300 text-slate-600' : 'bg-text-primary text-white hover:shadow-[0_0_16px_rgba(58,134,255,0.4)] active:scale-95'} font-heading font-semibold transition-all flex items-center justify-center gap-2 tap-effect">
                 <span class="material-symbols-outlined text-[20px] text-tertiary-fixed">add_shopping_cart</span>
-                <span>კალათაში დამატება</span>
+                <span>${isOut ? 'ამოწურულია' : 'კალათაში ჩაგდება'}</span>
               </button>
             </div>
           </div>
@@ -718,6 +762,19 @@ function openQuickView(productId, event) {
 
   modal.classList.remove('hidden');
   modal.classList.add('flex');
+}
+
+function switchQuickViewImage(src, btnEl) {
+  const mainImg = document.getElementById('qv-main-image');
+  if (mainImg) mainImg.src = src;
+  document.querySelectorAll('.qv-thumb').forEach(b => {
+    b.classList.remove('border-secondary');
+    b.classList.add('border-transparent');
+  });
+  if (btnEl) {
+    btnEl.classList.remove('border-transparent');
+    btnEl.classList.add('border-secondary');
+  }
 }
 
 function closeQuickView() {
@@ -911,26 +968,78 @@ function closeCheckout() {
 
 function submitOrder(e) {
   e.preventDefault();
-  const orderNum = 'KPL-' + Math.floor(10000 + Math.random() * 90000);
+  const orderNum = 'ORD-' + Math.floor(10000 + Math.random() * 90000);
+
+  const customer = document.getElementById('chk-name')?.value || 'მომხმარებელი';
+  const phone = document.getElementById('chk-phone')?.value || '596 03 25 25';
+  const deliveryMethod = document.getElementById('chk-delivery')?.value || 'კურიერი (თბილისი)';
+  const city = document.getElementById('chk-city')?.value || 'თბილისი';
+  const address = document.getElementById('chk-address')?.value || 'თბილისი';
+  const paymentRadio = document.querySelector('input[name="payment"]:checked');
+  const paymentMethod = paymentRadio ? paymentRadio.value : 'TBC Pay';
+
+  const subtotal = calculateCartTotal();
+  const grandTotal = subtotal >= 50 ? subtotal : subtotal + 5;
+
+  const orderItems = STATE.cart.map(item => {
+    const p = PRODUCTS.find(pr => pr.id === item.productId);
+    if (p) {
+      p.stock = Math.max(0, Number(p.stock || 15) - item.quantity);
+      if (p.stock === 0) p.status = 'out_of_stock';
+    }
+    return {
+      sku: p ? p.sku : 'TOY-000',
+      title: p ? p.title : 'სათამაშო',
+      qty: item.quantity,
+      price: p ? p.price : 0,
+      cost: p ? (p.cost || (p.price / 1.65)) : 0
+    };
+  });
+
+  if (typeof saveProductsDatabase === 'function') {
+    saveProductsDatabase(PRODUCTS);
+  }
+
+  const totalCost = orderItems.reduce((s, it) => s + (Number(it.cost) * it.qty), 0);
+
+  if (typeof loadOrdersDatabase === 'function' && typeof saveOrdersDatabase === 'function') {
+    const orders = loadOrdersDatabase();
+    orders.unshift({
+      id: orderNum,
+      date: new Date().toLocaleString('ka-GE'),
+      customer,
+      phone,
+      city,
+      address,
+      deliveryMethod,
+      paymentMethod,
+      status: 'processing',
+      trackingCode: 'GE-' + Math.floor(100000 + Math.random() * 900000),
+      items: orderItems,
+      total: grandTotal,
+      totalCost: Number(totalCost.toFixed(2))
+    });
+    saveOrdersDatabase(orders);
+  }
   
   const modalContent = document.getElementById('checkout-form-container');
   if (modalContent) {
     modalContent.innerHTML = `
-      <div class="text-center py-8 space-y-4">
-        <div class="w-20 h-20 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center space-cosmic-glow">
+      <div class="text-center py-6 space-y-4">
+        <div class="w-16 h-16 mx-auto rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center space-cosmic-glow">
           <span class="material-symbols-outlined text-4xl">check_circle</span>
         </div>
-        <h3 class="text-2xl font-bold font-heading text-text-primary">შეკვეთა მიღებულია!</h3>
-        <p class="text-text-muted text-sm max-w-sm mx-auto">
-          თქვენი შეკვეთის ნომერია: <strong class="text-secondary font-bold font-heading text-base">#${orderNum}</strong>.
-          დეტალები და SMS დადასტურება გამოგეგზავნათ მითითებულ ნომერზე.
+        <h3 class="text-2xl font-bold font-heading text-text-primary">შეკვეთა გაფორმებულია!</h3>
+        <p class="text-text-muted text-xs max-w-sm mx-auto">
+          შეკვეთის კოდი: <strong class="text-secondary font-bold font-heading text-sm">#${orderNum}</strong>.
+          შეკვეთა გადაგზავნილია Admin პანელში და თქვენს პირად კაბინეტში.
         </p>
         <div class="p-4 rounded-2xl bg-surface-bg tactile-inset max-w-xs mx-auto text-xs text-text-muted text-left space-y-1.5">
-          <div>🚚 <strong>მიწოდება:</strong> 1-2 სამუშაო დღეში კურიერით პირდაპირ მისამართზე</div>
-          <div>💳 <strong>გადახდა:</strong> შერჩეული მეთოდით</div>
-          <div>📞 <strong>კურიერის ზარი:</strong> ჩაბარებამდე 30 წთ-ით ადრე</div>
+          <div>🚚 <strong>მიწოდება:</strong> ${deliveryMethod} (${city})</div>
+          <div>💳 <strong>გადახდა:</strong> ${paymentMethod} — ${grandTotal.toFixed(2)} ₾</div>
+          <div>📞 <strong>საკონტაქტო:</strong> ${phone}</div>
         </div>
-        <button onclick="finishOrder()" class="mt-4 px-8 py-3 rounded-xl bg-text-primary text-white font-heading font-semibold tap-effect">
+        <button onclick="finishOrder()" class="mt-4 px-8 py-3 rounded-xl bg-text-primary text-white font-heading font-semibold text-xs tap-effect">
           მთავარ გვერდზე დაბრუნება
         </button>
       </div>
@@ -999,9 +1108,85 @@ function initCountdownTimer() {
   }, 1000);
 }
 
-// Auth Modal
+// Multi-language Switcher (KA default, EN, RU)
+function switchLanguage(lang) {
+  STATE.lang = lang;
+  const heading = document.getElementById('catalog-heading');
+  if (heading) {
+    heading.textContent = lang === 'en'
+      ? 'Toys Catalog (18 Items)'
+      : lang === 'ru'
+        ? 'Каталог игрушек (18 позиций)'
+        : 'სათამაშოების კატალოგი (18 პოზიცია)';
+  }
+  renderProducts();
+  showToast(lang === 'en' ? 'Language switched to English' : lang === 'ru' ? 'Язык переключен на Русский' : 'ენა შეიცვალა: ქართული', 'info');
+}
+
+// User Account Modal (Orders History, Wishlist, Addresses)
 function openAuthModal() {
   const modal = document.getElementById('auth-modal');
+  const content = document.getElementById('user-account-content');
+  if (content && typeof loadOrdersDatabase === 'function') {
+    const orders = loadOrdersDatabase();
+    const wishProds = STATE.wishlist.map(id => PRODUCTS.find(p => p.id === id)).filter(Boolean);
+    content.innerHTML = `
+      <div class="space-y-4">
+        <div class="flex items-center justify-between p-3 rounded-2xl bg-secondary/10 border border-secondary/20">
+          <div>
+            <div class="font-bold text-text-primary">მფლობელის / ადმინისტრატორის რეჟიმი</div>
+            <div class="text-[11px] text-text-muted">პროდუქტების, +65% მარკაპის და Excel იმპორტის მართვა</div>
+          </div>
+          <a href="admin.html" class="px-3.5 py-2 rounded-xl bg-primary text-white font-bold text-xs flex items-center gap-1">
+            <span class="material-symbols-outlined text-[#00F0FF] text-[16px]">admin_panel_settings</span>
+            <span>Admin Panel</span>
+          </a>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-sm text-text-primary mb-2">📦 ჩემი შეკვეთების ისტორია (${orders.length})</h4>
+          <div class="space-y-2">
+            ${orders.map(o => `
+              <div class="p-3 rounded-2xl bg-surface-bg flex flex-wrap items-center justify-between gap-2">
+                <div>
+                  <span class="font-bold text-secondary">${o.id}</span>
+                  <span class="text-[11px] text-text-muted ml-2">${o.date}</span>
+                  <div class="text-[11px] text-text-primary mt-0.5">${o.deliveryMethod} • ტრეკინგი: <b>${o.trackingCode || 'PENDING'}</b></div>
+                </div>
+                <div class="text-right">
+                  <div class="font-heading font-bold text-sm text-emerald-700">${Number(o.total).toFixed(2)} ₾</div>
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-white font-bold">${o.status === 'delivered' ? 'ჩაბარებულია' : o.status === 'shipped' ? 'გზაშია' : 'მუშავდება'}</span>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-sm text-text-primary mb-2">❤️ სურვილების სია (${wishProds.length})</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+            ${wishProds.map(p => `
+              <div class="p-2.5 rounded-xl bg-surface-bg flex items-center gap-2.5">
+                <img src="${p.image}" class="w-10 h-10 rounded-lg object-cover"/>
+                <div class="truncate flex-1">
+                  <div class="font-semibold truncate">${p.title}</div>
+                  <div class="font-bold text-secondary">${p.price.toFixed(2)} ₾</div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        </div>
+
+        <div>
+          <h4 class="font-heading font-bold text-sm text-text-primary mb-2">📍 შენახული მისამართები</h4>
+          <div class="p-3 rounded-2xl bg-surface-bg flex items-center justify-between">
+            <span>თბილისი, ჭავჭავაძის გამზ. #34 • ტელ: 596 03 25 25</span>
+            <span class="px-2 py-0.5 rounded bg-emerald-100 text-emerald-700 font-bold text-[10px]">ძირითადი</span>
+          </div>
+        </div>
+      </div>
+    `;
+  }
   if (modal) {
     modal.classList.remove('hidden');
     modal.classList.add('flex');
