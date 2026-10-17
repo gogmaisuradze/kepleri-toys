@@ -896,7 +896,7 @@
 
     function resetToDefaultProducts() {
       if (!confirm('აღვადგინოთ საწყისი 18 პროდუქტი +65% მარკაპით?')) return;
-      localStorage.removeItem('kepler_products_v2');
+      localStorage.removeItem('kepler_products_v3');
       adminProducts = loadProductsDatabase();
       refreshAllAdminUI();
     }

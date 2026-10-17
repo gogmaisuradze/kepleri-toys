@@ -121,11 +121,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 9,
-    image: "images/products/toy-01-main.jpg",
+    image: "images/products/toy-01-main.jpg?v=3",
     gallery: [
-      "images/products/toy-01-main.jpg",
-      "images/products/toy-01-detail.jpg",
-      "images/products/toy-01-studio.jpg"
+      "images/products/toy-01-main.jpg?v=3",
+      "images/products/toy-01-detail.jpg?v=3",
+      "images/products/toy-01-studio.jpg?v=3"
     ],
     badge: "TOP",
     badgeColor: "yellow",
@@ -157,11 +157,11 @@ const DEFAULT_PRODUCTS = [
     installment: 5,
     isHotDeal: true,
     isDealOfDay: true,
-    image: "images/products/toy-02-main.jpg",
+    image: "images/products/toy-02-main.jpg?v=3",
     gallery: [
-      "images/products/toy-02-main.jpg",
-      "images/products/toy-02-detail.jpg",
-      "images/products/toy-02-studio.jpg"
+      "images/products/toy-02-main.jpg?v=3",
+      "images/products/toy-02-detail.jpg?v=3",
+      "images/products/toy-02-studio.jpg?v=3"
     ],
     badge: "ჰიტი",
     badgeColor: "sale",
@@ -192,11 +192,11 @@ const DEFAULT_PRODUCTS = [
     inStock: true,
     installment: 9,
     isHotDeal: true,
-    image: "images/products/toy-03-main.jpg",
+    image: "images/products/toy-03-main.jpg?v=3",
     gallery: [
-      "images/products/toy-03-main.jpg",
-      "images/products/toy-03-detail.jpg",
-      "images/products/toy-03-studio.jpg"
+      "images/products/toy-03-main.jpg?v=3",
+      "images/products/toy-03-detail.jpg?v=3",
+      "images/products/toy-03-studio.jpg?v=3"
     ],
     badge: "კოსმოსი",
     badgeColor: "blue",
@@ -226,11 +226,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 4,
-    image: "images/products/toy-04-main.jpg",
+    image: "images/products/toy-04-main.jpg?v=3",
     gallery: [
-      "images/products/toy-04-main.jpg",
-      "images/products/toy-04-detail.jpg",
-      "images/products/toy-04-studio.jpg"
+      "images/products/toy-04-main.jpg?v=3",
+      "images/products/toy-04-detail.jpg?v=3",
+      "images/products/toy-04-studio.jpg?v=3"
     ],
     badge: "ახალი",
     badgeColor: "blue",
@@ -260,11 +260,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 4,
-    image: "images/products/toy-05-main.jpg",
+    image: "images/products/toy-05-main.jpg?v=3",
     gallery: [
-      "images/products/toy-05-main.jpg",
-      "images/products/toy-05-detail.jpg",
-      "images/products/toy-05-studio.jpg"
+      "images/products/toy-05-main.jpg?v=3",
+      "images/products/toy-05-detail.jpg?v=3",
+      "images/products/toy-05-studio.jpg?v=3"
     ],
     badge: "5-1-ში",
     badgeColor: "green",
@@ -294,11 +294,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 8,
-    image: "images/products/toy-06-main.jpg",
+    image: "images/products/toy-06-main.jpg?v=3",
     gallery: [
-      "images/products/toy-06-main.jpg",
-      "images/products/toy-06-detail.jpg",
-      "images/products/toy-06-studio.jpg"
+      "images/products/toy-06-main.jpg?v=3",
+      "images/products/toy-06-detail.jpg?v=3",
+      "images/products/toy-06-studio.jpg?v=3"
     ],
     badge: "STEM",
     badgeColor: "blue",
@@ -329,11 +329,11 @@ const DEFAULT_PRODUCTS = [
     inStock: true,
     installment: 6,
     isHotDeal: true,
-    image: "images/products/toy-07-main.jpg",
+    image: "images/products/toy-07-main.jpg?v=3",
     gallery: [
-      "images/products/toy-07-main.jpg",
-      "images/products/toy-07-detail.jpg",
-      "images/products/toy-07-studio.jpg"
+      "images/products/toy-07-main.jpg?v=3",
+      "images/products/toy-07-detail.jpg?v=3",
+      "images/products/toy-07-studio.jpg?v=3"
     ],
     badge: "4WD ამფიბია",
     badgeColor: "sale",
@@ -363,11 +363,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 2,
-    image: "images/products/toy-08-main.jpg",
+    image: "images/products/toy-08-main.jpg?v=3",
     gallery: [
-      "images/products/toy-08-main.jpg",
-      "images/products/toy-08-detail.jpg",
-      "images/products/toy-08-studio.jpg"
+      "images/products/toy-08-main.jpg?v=3",
+      "images/products/toy-08-detail.jpg?v=3",
+      "images/products/toy-08-studio.jpg?v=3"
     ],
     badge: "ბესტსელერი",
     badgeColor: "yellow",
@@ -397,11 +397,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 8,
-    image: "images/products/toy-09-main.jpg",
+    image: "images/products/toy-09-main.jpg?v=3",
     gallery: [
-      "images/products/toy-09-main.jpg",
-      "images/products/toy-09-detail.jpg",
-      "images/products/toy-09-studio.jpg"
+      "images/products/toy-09-main.jpg?v=3",
+      "images/products/toy-09-detail.jpg?v=3",
+      "images/products/toy-09-studio.jpg?v=3"
     ],
     badge: "გიგანტი",
     badgeColor: "yellow",
@@ -431,11 +431,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 9,
-    image: "images/products/toy-10-main.jpg",
+    image: "images/products/toy-10-main.jpg?v=3",
     gallery: [
-      "images/products/toy-10-main.jpg",
-      "images/products/toy-10-detail.jpg",
-      "images/products/toy-10-studio.jpg"
+      "images/products/toy-10-main.jpg?v=3",
+      "images/products/toy-10-detail.jpg?v=3",
+      "images/products/toy-10-studio.jpg?v=3"
     ],
     badge: "სწრაფი გასროლა",
     badgeColor: "green",
@@ -465,11 +465,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 6,
-    image: "images/products/toy-11-main.jpg",
+    image: "images/products/toy-11-main.jpg?v=3",
     gallery: [
-      "images/products/toy-11-main.jpg",
-      "images/products/toy-11-detail.jpg",
-      "images/products/toy-11-studio.jpg"
+      "images/products/toy-11-main.jpg?v=3",
+      "images/products/toy-11-detail.jpg?v=3",
+      "images/products/toy-11-studio.jpg?v=3"
     ],
     badge: "სახელოსნო",
     badgeColor: "yellow",
@@ -499,11 +499,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 6,
-    image: "images/products/toy-12-main.jpg",
+    image: "images/products/toy-12-main.jpg?v=3",
     gallery: [
-      "images/products/toy-12-main.jpg",
-      "images/products/toy-12-detail.jpg",
-      "images/products/toy-12-studio.jpg"
+      "images/products/toy-12-main.jpg?v=3",
+      "images/products/toy-12-detail.jpg?v=3",
+      "images/products/toy-12-studio.jpg?v=3"
     ],
     badge: "6-1-ში",
     badgeColor: "yellow",
@@ -534,11 +534,11 @@ const DEFAULT_PRODUCTS = [
     inStock: true,
     installment: 4,
     isHotDeal: true,
-    image: "images/products/toy-13-main.jpg",
+    image: "images/products/toy-13-main.jpg?v=3",
     gallery: [
-      "images/products/toy-13-main.jpg",
-      "images/products/toy-13-detail.jpg",
-      "images/products/toy-13-studio.jpg"
+      "images/products/toy-13-main.jpg?v=3",
+      "images/products/toy-13-detail.jpg?v=3",
+      "images/products/toy-13-studio.jpg?v=3"
     ],
     badge: "მონტესორი",
     badgeColor: "green",
@@ -568,11 +568,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 15,
-    image: "images/products/toy-14-main.jpg",
+    image: "images/products/toy-14-main.jpg?v=3",
     gallery: [
-      "images/products/toy-14-main.jpg",
-      "images/products/toy-14-detail.jpg",
-      "images/products/toy-14-studio.jpg"
+      "images/products/toy-14-main.jpg?v=3",
+      "images/products/toy-14-detail.jpg?v=3",
+      "images/products/toy-14-studio.jpg?v=3"
     ],
     badge: "PREMIUM",
     badgeColor: "sale",
@@ -602,11 +602,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 4,
-    image: "images/products/toy-15-main.jpg",
+    image: "images/products/toy-15-main.jpg?v=3",
     gallery: [
-      "images/products/toy-15-main.jpg",
-      "images/products/toy-15-detail.jpg",
-      "images/products/toy-15-studio.jpg"
+      "images/products/toy-15-main.jpg?v=3",
+      "images/products/toy-15-detail.jpg?v=3",
+      "images/products/toy-15-studio.jpg?v=3"
     ],
     badge: "DRIFT",
     badgeColor: "sale",
@@ -636,11 +636,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 3,
-    image: "images/products/toy-16-main.jpg",
+    image: "images/products/toy-16-main.jpg?v=3",
     gallery: [
-      "images/products/toy-16-main.jpg",
-      "images/products/toy-16-detail.jpg",
-      "images/products/toy-16-studio.jpg"
+      "images/products/toy-16-main.jpg?v=3",
+      "images/products/toy-16-detail.jpg?v=3",
+      "images/products/toy-16-studio.jpg?v=3"
     ],
     badge: "ALLOY",
     badgeColor: "green",
@@ -670,11 +670,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 4,
-    image: "images/products/toy-17-main.jpg",
+    image: "images/products/toy-17-main.jpg?v=3",
     gallery: [
-      "images/products/toy-17-main.jpg",
-      "images/products/toy-17-detail.jpg",
-      "images/products/toy-17-studio.jpg"
+      "images/products/toy-17-main.jpg?v=3",
+      "images/products/toy-17-detail.jpg?v=3",
+      "images/products/toy-17-studio.jpg?v=3"
     ],
     badge: "სენსორული",
     badgeColor: "blue",
@@ -704,11 +704,11 @@ const DEFAULT_PRODUCTS = [
     status: "active",
     inStock: true,
     installment: 2,
-    image: "images/products/toy-18-main.jpg",
+    image: "images/products/toy-18-main.jpg?v=3",
     gallery: [
-      "images/products/toy-18-main.jpg",
-      "images/products/toy-18-detail.jpg",
-      "images/products/toy-18-studio.jpg"
+      "images/products/toy-18-main.jpg?v=3",
+      "images/products/toy-18-detail.jpg?v=3",
+      "images/products/toy-18-studio.jpg?v=3"
     ],
     badge: "ECO STEM",
     badgeColor: "green",
@@ -720,7 +720,7 @@ const DEFAULT_PRODUCTS = [
 // პროდუქტების წამოღება localStorage-დან (Admin Panel-თან სინქრონიზაცია)
 function loadProductsDatabase() {
   try {
-    const saved = localStorage.getItem('kepler_products_v2');
+    const saved = localStorage.getItem('kepler_products_v3');
     if (saved) {
       const parsed = JSON.parse(saved);
       if (Array.isArray(parsed) && parsed.length > 0) {
@@ -736,7 +736,7 @@ function loadProductsDatabase() {
   } catch (e) {
     console.warn('Error loading custom products:', e);
   }
-  localStorage.setItem('kepler_products_v2', JSON.stringify(DEFAULT_PRODUCTS));
+  localStorage.setItem('kepler_products_v3', JSON.stringify(DEFAULT_PRODUCTS));
   return [...DEFAULT_PRODUCTS];
 }
 
@@ -748,7 +748,7 @@ function saveProductsDatabase(productsList) {
     price: calcSitePrice(p.cost || 0, p.markup !== undefined ? p.markup : 65),
     inStock: p.status === 'active' && Number(p.stock) > 0
   }));
-  localStorage.setItem('kepler_products_v2', JSON.stringify(normalized));
+  localStorage.setItem('kepler_products_v3', JSON.stringify(normalized));
   PRODUCTS = normalized;
   return normalized;
 }
